@@ -1,4 +1,4 @@
-package com.kkontagion.hci;
+package com.kkontagion.sugarbaby;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -17,14 +17,17 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
-                case R.id.navigation_home:
-                    mTextMessage.setText(R.string.title_home);
+                case R.id.navigation_meds:
+                    mTextMessage.setText(R.string.title_meds);
                     return true;
-                case R.id.navigation_dashboard:
-                    mTextMessage.setText(R.string.title_dashboard);
+                case R.id.navigation_shots:
+                    mTextMessage.setText(R.string.title_shots);
                     return true;
-                case R.id.navigation_notifications:
-                    mTextMessage.setText(R.string.title_notifications);
+                case R.id.navigation_food:
+                    mTextMessage.setText(R.string.title_food);
+                    return true;
+                case R.id.navigation_journal:
+                    mTextMessage.setText(R.string.title_journal);
                     return true;
             }
             return false;

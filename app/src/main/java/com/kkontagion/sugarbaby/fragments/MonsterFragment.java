@@ -18,14 +18,6 @@ import com.kkontagion.sugarbaby.adapters.GoalsAdapter;
  * create an instance of this fragment.
  */
 public class MonsterFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
     RecyclerView lv;
 
@@ -45,8 +37,6 @@ public class MonsterFragment extends Fragment {
     public static MonsterFragment newInstance() {
         MonsterFragment fragment = new MonsterFragment();
         Bundle args = new Bundle();
-//        args.putString(ARG_PARAM1, param1);
-//        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -55,8 +45,6 @@ public class MonsterFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
 
@@ -68,8 +56,6 @@ public class MonsterFragment extends Fragment {
 
         lv = v.findViewById(R.id.lv);
         adapter = new GoalsAdapter(getContext());
-
-//        lv.setLayoutManager(new LinearLayoutManager());
         lv.setAdapter(adapter);
 
         return v;

@@ -1,13 +1,39 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.kkontagion.sugarbaby.fragments.MonsterFragment">
 
     <!-- TODO: Update blank fragment layout -->
+
+    <ImageView
+        android:id="@+id/img_monster"
+        android:layout_width="@dimen/monster_img"
+        android:layout_height="@dimen/monster_img"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:adjustViewBounds="true"
+        android:scaleType="fitXY"
+        app:srcCompat="@mipmap/ic_monster" />
+
     <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/img_monster"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="@dimen/card_icon_padding"
+        android:text="@string/monster_h1"
+        android:textAppearance="@android:style/TextAppearance.Material.Title"
+        android:textColor="@color/colorAccent"
+        android:textSize="24sp" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/lv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
-
-</FrameLayout>
+        android:layout_below="@+id/textView"
+        android:layout_centerHorizontal="true"
+        app:layoutManager="android.support.v7.widget.LinearLayoutManager"/>
+</RelativeLayout>

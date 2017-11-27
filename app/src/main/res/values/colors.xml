@@ -4,8 +4,9 @@
     <color name="colorPrimaryDark">#bd8e37</color>
     <color name="colorAccent">#92c553</color>
     <color name="colorAccentDark">#72A930</color>
+    <color name="backgroundLight">#f7e8cb</color>
     <color name="background">#d1bd94</color>
     <color name="backgroundDark">#69480e</color>
 
-    <color name="colorText">#912e16</color>
+    <color name="subtext">#787878</color>
 </resources>

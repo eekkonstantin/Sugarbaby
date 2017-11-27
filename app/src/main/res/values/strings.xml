@@ -6,6 +6,9 @@
     <string name="title_food">Food</string>
     <string name="title_journal">Journal</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hello_blank_fragment">FILL ME UP</string>
+
+    <string name="monster_h1">Fight this monster!</string>
+
+    <string name="goals_h1">Keep blood sugar level below idk for 1 week</string>
 </resources>

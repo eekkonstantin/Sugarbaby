@@ -3,34 +3,52 @@ package com.kkontagion.sugarbaby;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
-import android.widget.TextView;
+
+import com.kkontagion.sugarbaby.fragments.FoodFragment;
+import com.kkontagion.sugarbaby.fragments.JournalFragment;
+import com.kkontagion.sugarbaby.fragments.MedsFragment;
+import com.kkontagion.sugarbaby.fragments.MonsterFragment;
+import com.kkontagion.sugarbaby.fragments.ShotsFragment;
 
 public class MainActivity extends AppCompatActivity {
+    public static final String TAG = "MainActivity";
 
-    private TextView mTextMessage;
+//    private int[] fragments = new int[] {
+//            R.id.navigation_home, R.id.navigation_meds,
+//            R.id.navigation_shots, R.id.navigation_food,
+//            R.id.navigation_journal
+//    };
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            Fragment frag = null;
             switch (item.getItemId()) {
+                case R.id.navigation_home:
+                    frag = MonsterFragment.newInstance();
+                    break;
                 case R.id.navigation_meds:
-                    mTextMessage.setText(R.string.title_meds);
-                    return true;
+                    frag = MedsFragment.newInstance();
+                    break;
                 case R.id.navigation_shots:
-                    mTextMessage.setText(R.string.title_shots);
-                    return true;
+                    frag = ShotsFragment.newInstance();
+                    break;
                 case R.id.navigation_food:
-                    mTextMessage.setText(R.string.title_food);
-                    return true;
+                    frag = FoodFragment.newInstance();
+                    break;
                 case R.id.navigation_journal:
-                    mTextMessage.setText(R.string.title_journal);
-                    return true;
+                    frag = JournalFragment.newInstance();
+                    break;
             }
-            return false;
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.content, frag).commit();
+            return true;
         }
 
     };
@@ -40,8 +58,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mTextMessage = (TextView) findViewById(R.id.message);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
 

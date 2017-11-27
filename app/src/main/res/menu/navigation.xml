@@ -2,6 +2,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
+        android:id="@+id/navigation_home"
+        android:icon="@mipmap/ic_monster"
+        android:title="@string/title_home" />
+    <item
         android:id="@+id/navigation_meds"
         android:icon="@mipmap/ic_meds"
         android:title="@string/title_meds" />

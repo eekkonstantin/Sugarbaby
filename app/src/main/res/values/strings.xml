@@ -9,6 +9,9 @@
     <string name="hello_blank_fragment">FILL ME UP</string>
 
     <string name="monster_h1">Fight this monster!</string>
-
     <string name="goals_h1">Keep blood sugar level below idk for 1 week</string>
+
+    <string name="food_h1">What\'s for %1$s?</string>
+    <string name="food_add">Record a meal</string>
+    <string name="food_h2">Past Meals</string>
 </resources>

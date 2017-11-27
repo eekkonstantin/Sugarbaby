@@ -13,8 +13,8 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:paddingLeft="@dimen/card_icon_padding"
-        android:paddingRight="@dimen/card_icon_padding">
+        android:paddingLeft="@dimen/reg_padding"
+        android:paddingRight="@dimen/reg_padding">
 
     </FrameLayout>
 

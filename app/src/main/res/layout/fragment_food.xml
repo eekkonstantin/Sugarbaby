@@ -1,13 +1,91 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.kkontagion.sugarbaby.fragments.FoodFragment">
 
     <!-- TODO: Update blank fragment layout -->
+
     <TextView
+        android:id="@+id/tv_h1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_margin="@dimen/reg_padding"
+        android:text="@string/food_h1"
+        android:textAppearance="@android:style/TextAppearance.Material.Title"
+        android:textColor="@color/colorAccent"
+        android:textSize="24sp" />
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_h1"
+        android:layout_weight="1"
+        android:padding="@dimen/reg_padding"
+        android:layout_margin="@dimen/reg_padding"
+        app:cardBackgroundColor="@color/colorPrimaryDark"
+        app:cardCornerRadius="5dp"
+        app:cardElevation="5dp"
+        android:id="@+id/card">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/img_icon"
+                android:layout_width="@dimen/card_icon"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/lrg_padding"
+                android:layout_weight="1"
+                android:tint="@color/colorAccentLight"
+                app:srcCompat="@mipmap/ic_add" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:orientation="vertical"
+                android:paddingRight="@dimen/reg_padding">
+
+                <TextView
+                    android:id="@+id/TextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="@string/food_add"
+                    android:textColor="@color/colorAccentLight"
+                    android:textSize="20sp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+    <TextView
+        android:id="@+id/tv_h2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/card"
+        android:layout_margin="@dimen/reg_padding"
+        android:text="@string/food_h2"
+        android:textAppearance="@android:style/TextAppearance.Material.Title"
+        android:textColor="@color/colorAccent"
+        android:textSize="20sp" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/lv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
-
-</FrameLayout>
+        android:layout_below="@+id/tv_h2"
+        android:layout_centerHorizontal="true"
+        app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
+</RelativeLayout>

@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/img_monster"
         android:layout_centerHorizontal="true"
-        android:layout_margin="@dimen/card_icon_padding"
+        android:layout_margin="@dimen/reg_padding"
         android:text="@string/monster_h1"
         android:textAppearance="@android:style/TextAppearance.Material.Title"
         android:textColor="@color/colorAccent"

@@ -49,4 +49,8 @@ public class FoodAdapter extends RecyclerView.Adapter<BasicCard> {
     public int getItemCount() {
         return food.size();
     }
+
+    public ArrayList<Food> getItems() {
+        return food;
+    }
 }

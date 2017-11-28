@@ -1,10 +1,12 @@
 package com.kkontagion.sugarbaby.objects;
 
+import java.io.Serializable;
+
 /**
  * Created by kkontagion on 028 28/11/2017.
  */
 
-public class Food {
+public class Food implements Serializable {
     FoodType type;
     String desc;
     double calories, carbs;

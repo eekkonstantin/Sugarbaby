@@ -6,10 +6,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.bumptech.glide.Glide;
 import com.kkontagion.sugarbaby.R;
 import com.kkontagion.sugarbaby.objects.Meal;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Random;
 
 /**
@@ -35,6 +37,11 @@ public class MealsAdapter extends RecyclerView.Adapter<BasicCard> {
             meals.add(new Meal(i, 12 + rand.nextInt(15 - 12), rand.nextInt(60)));
             meals.add(new Meal(i, 5 + rand.nextInt(12 - 5), rand.nextInt(60)));
         }
+    }
+
+    public void add(Meal m) {
+        meals.add(0, m);
+        notifyDataSetChanged();
     }
 
     /**
@@ -67,10 +74,13 @@ public class MealsAdapter extends RecyclerView.Adapter<BasicCard> {
         holder.tvHeader.setText(item.getDate());
         if (item.getAte() == null) // IS TESTING
             holder.tvSubtext.setText(ctx.getString(R.string.food_meal_totals, 50.0, 3.0));
-        else {
-            item.calculateTotals();
+        else
             holder.tvSubtext.setText(ctx.getString(R.string.food_meal_totals, item.getCarbs(), item.getCalories()));
-        }
+
+        Glide.with(ctx).load(
+            (item.getCalendarDate().get(Calendar.HOUR_OF_DAY) < 18)
+            ? R.mipmap.ic_sun : R.mipmap.ic_moon
+        ).into(holder.icon);
     }
 
     /**

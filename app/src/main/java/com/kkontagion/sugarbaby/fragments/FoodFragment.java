@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,8 +18,11 @@ import com.kkontagion.sugarbaby.MainActivity;
 import com.kkontagion.sugarbaby.MealCreatorActivity;
 import com.kkontagion.sugarbaby.R;
 import com.kkontagion.sugarbaby.adapters.MealsAdapter;
+import com.kkontagion.sugarbaby.objects.Meal;
 
 import java.util.Calendar;
+
+import static android.app.Activity.RESULT_OK;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -26,6 +30,7 @@ import java.util.Calendar;
  * create an instance of this fragment.
  */
 public class FoodFragment extends Fragment {
+    public static final String TAG = "FoodFragment";
 
     TextView tvTitle;
     RecyclerView lv;
@@ -57,8 +62,8 @@ public class FoodFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-        }
+
+        mealsAdapter = new MealsAdapter(getContext());
     }
 
     /**
@@ -80,19 +85,24 @@ public class FoodFragment extends Fragment {
         lv = v.findViewById(R.id.lv);
         card = v.findViewById(R.id.card);
 
-        mealsAdapter = new MealsAdapter(getContext());
         lv.setAdapter(mealsAdapter);
 
         card.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivityForResult(new Intent(getActivity(), MealCreatorActivity.class), 0);
+                startActivityForResult(new Intent(getActivity(), MealCreatorActivity.class), MealCreatorActivity.CREATE_MEAL);
             }
         });
 
         getMeal();
 
         return v;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_OK)
+            mealsAdapter.add((Meal) data.getSerializableExtra(MealCreatorActivity.TAG));
     }
 
     private void getMeal() {

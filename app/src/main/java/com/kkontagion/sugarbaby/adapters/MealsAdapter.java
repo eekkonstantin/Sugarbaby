@@ -77,10 +77,11 @@ public class MealsAdapter extends RecyclerView.Adapter<BasicCard> {
         else
             holder.tvSubtext.setText(ctx.getString(R.string.food_meal_totals, item.getCarbs(), item.getCalories()));
 
-        Glide.with(ctx).load(
-            (item.getCalendarDate().get(Calendar.HOUR_OF_DAY) < 18)
-            ? R.mipmap.ic_sun : R.mipmap.ic_moon
-        ).into(holder.icon);
+        int ico = R.mipmap.ic_moon;
+        if (item.getCalendarDate().get(Calendar.HOUR_OF_DAY) < 18
+                || item.getCalendarDate().get(Calendar.HOUR_OF_DAY) > 6)
+            ico = R.mipmap.ic_sun;
+        Glide.with(ctx).load(ico).into(holder.icon);
     }
 
     /**

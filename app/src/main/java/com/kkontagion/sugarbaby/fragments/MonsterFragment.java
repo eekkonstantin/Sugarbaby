@@ -8,7 +8,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.kkontagion.sugarbaby.R;
 import com.kkontagion.sugarbaby.adapters.GoalsAdapter;
 
@@ -20,6 +22,7 @@ import com.kkontagion.sugarbaby.adapters.GoalsAdapter;
 public class MonsterFragment extends Fragment {
 
     RecyclerView lv;
+    ImageView img;
 
     GoalsAdapter adapter;
 
@@ -57,6 +60,9 @@ public class MonsterFragment extends Fragment {
         lv = v.findViewById(R.id.lv);
         adapter = new GoalsAdapter(getContext());
         lv.setAdapter(adapter);
+
+        img = v.findViewById(R.id.img_monster);
+        Glide.with(getContext()).load(R.raw.angryjumpybear).into(img);
 
         return v;
     }

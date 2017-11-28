@@ -1,19 +1,24 @@
 package com.kkontagion.sugarbaby.fragments;
 
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.kkontagion.sugarbaby.MainActivity;
+import com.kkontagion.sugarbaby.MealCreatorActivity;
 import com.kkontagion.sugarbaby.R;
 import com.kkontagion.sugarbaby.adapters.MealsAdapter;
 
 import java.util.Calendar;
-import java.util.Date;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -24,6 +29,7 @@ public class FoodFragment extends Fragment {
 
     TextView tvTitle;
     RecyclerView lv;
+    CardView card;
 
     MealsAdapter mealsAdapter;
 
@@ -72,10 +78,17 @@ public class FoodFragment extends Fragment {
 
         tvTitle = v.findViewById(R.id.tv_h1);
         lv = v.findViewById(R.id.lv);
+        card = v.findViewById(R.id.card);
 
         mealsAdapter = new MealsAdapter(getContext());
-
         lv.setAdapter(mealsAdapter);
+
+        card.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivityForResult(new Intent(getActivity(), MealCreatorActivity.class), 0);
+            }
+        });
 
         getMeal();
 
@@ -88,11 +101,11 @@ public class FoodFragment extends Fragment {
             meal = "supper";
         else if (h < 12)
             meal = "breakfast";
-        else if (h < 3)
+        else if (h < 15)
             meal = "lunch";
-        else if (h < 6)
+        else if (h < 18)
             meal = "tea";
-        else if (h < 8)
+        else if (h < 20)
             meal = "dinner";
         else
             meal = "supper";

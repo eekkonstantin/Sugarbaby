@@ -2,13 +2,9 @@ package com.kkontagion.sugarbaby.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.TextView;
 
 import com.kkontagion.sugarbaby.R;
 import com.kkontagion.sugarbaby.objects.Meal;
@@ -69,6 +65,12 @@ public class MealsAdapter extends RecyclerView.Adapter<BasicCard> {
     public void onBindViewHolder(BasicCard holder, int position) {
         Meal item = meals.get(position);
         holder.tvHeader.setText(item.getDate());
+        if (item.getAte() == null) // IS TESTING
+            holder.tvSubtext.setText(ctx.getString(R.string.food_meal_totals, 50.0, 3.0));
+        else {
+            item.calculateTotals();
+            holder.tvSubtext.setText(ctx.getString(R.string.food_meal_totals, item.getCarbs(), item.getCalories()));
+        }
     }
 
     /**

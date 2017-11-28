@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/background"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:padding="@dimen/reg_padding">
+
+    <ImageView
+        android:id="@+id/img_icon"
+        android:layout_width="@dimen/card_icon"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/reg_padding"
+        android:layout_weight="1"
+        android:foregroundTint="@color/backgroundDark"
+        android:tint="@color/colorAccentDark"
+        app:srcCompat="@mipmap/ic_sun" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/reg_padding"
+        android:paddingRight="@dimen/reg_padding"
+        android:paddingTop="@dimen/reg_padding">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="12 Nov 2017 2:35pm"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/tv_details"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:paddingTop="3dp"
+            android:text="50g carbs, 3mg cholesterol, 9g fat"
+            android:textColor="@color/subtext"
+            android:textSize="@dimen/subtext"
+            android:visibility="visible" />
+    </LinearLayout>
+
+</LinearLayout>

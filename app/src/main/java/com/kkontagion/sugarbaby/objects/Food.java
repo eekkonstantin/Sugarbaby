@@ -35,4 +35,9 @@ public class Food {
     public String getNutrition() {
         return carbs + "g carbohydrates, " + calories + "cal";
     }
+
+    @Override
+    public String toString() {
+        return desc;
+    }
 }

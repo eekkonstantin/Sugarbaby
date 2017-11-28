@@ -14,5 +14,7 @@
     <string name="food_h1">What\'s for %1$s?</string>
     <string name="food_add">Record a meal</string>
     <string name="food_h2">Past Meals</string>
+    <string name="food_meal_totals">%1$.1fg carbohydrates, %2$.0f calories</string>
     <string name="food_meal_hint">What did you eat?</string>
+
 </resources>

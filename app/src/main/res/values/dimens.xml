@@ -12,6 +12,7 @@
     <dimen name="reg_padding">@dimen/_5sdp</dimen>
     <dimen name="lrg_padding">@dimen/_10sdp</dimen>
 
+    <dimen name="icon_mini">@dimen/_20sdp</dimen>
     <dimen name="card_icon">@dimen/_70sdp</dimen>
     <dimen name="card_icon_small">@dimen/_50sdp</dimen>
 

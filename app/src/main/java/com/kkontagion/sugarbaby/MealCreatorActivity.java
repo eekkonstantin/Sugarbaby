@@ -167,6 +167,7 @@ public class MealCreatorActivity extends AppCompatActivity {
                         foodAdapter.notifyDataSetChanged();
                         cals += f.getCalories();
                         carbs += f.getCarbs();
+                        tvTotal.setText(getString(R.string.food_meal_totals, cals, carbs));
 
                         // Add into "database"
                         autoarray.add(f);

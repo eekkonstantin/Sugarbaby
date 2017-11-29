@@ -57,9 +57,11 @@
         <Spinner
             android:id="@+id/spinner"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/reg_padding"
-            android:backgroundTint="@color/colorAccentDark" />
+            android:backgroundTint="@color/colorAccentDark"
+            android:paddingBottom="@dimen/reg_padding"
+            android:paddingTop="@dimen/reg_padding" />
     </RelativeLayout>
 
     <TextView

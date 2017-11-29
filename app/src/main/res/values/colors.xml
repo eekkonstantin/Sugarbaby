@@ -8,6 +8,6 @@
     <color name="backgroundLight">#f7e8cb</color>
     <color name="background">#d1bd94</color>
     <color name="backgroundDark">#69480e</color>
-    <color name="backgroundWhite">#FFFFFF</color>
+
     <color name="subtext">#787878</color>
 </resources>

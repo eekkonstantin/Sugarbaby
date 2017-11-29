@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent"
-    android:padding="@dimen/reg_padding">
+    android:padding="@dimen/lrg_padding">
 
     <EditText
         android:id="@+id/et_name"
@@ -46,15 +46,15 @@
         android:textColorHint="@color/background" />
 
 
-
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:text="Reminder Times"
+        android:layout_alignParentStart="true"
         android:layout_below="@+id/et_units"
-        android:layout_alignParentStart="true" />
+        android:layout_marginStart="@dimen/reg_padding"
+        android:gravity="center_vertical"
+        android:text="Reminder Times" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -79,16 +79,18 @@
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="@dimen/reg_padding"
         android:gravity="center_vertical"
-        android:text="Medicine Name"
-        android:layout_alignParentStart="true" />
+        android:text="Medicine Name" />
 
     <TextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:text="Dosage"
+        android:layout_alignParentStart="true"
         android:layout_below="@+id/et_name"
-        android:layout_alignParentStart="true" />
+        android:layout_marginStart="@dimen/reg_padding"
+        android:gravity="center_vertical"
+        android:text="Dosage" />
 </RelativeLayout>

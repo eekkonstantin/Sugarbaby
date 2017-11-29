@@ -93,9 +93,10 @@ public class MedsHomeFragment extends Fragment {
         rvTodo.setAdapter(new FutureAdapter(getContext(), meds));
 
         // FOR DEMO
-        rvTodo.setOnClickListener(new View.OnClickListener() {
+        v.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Log.d("ugh", "onClick: poop");
                 if (mListener != null)
                     mListener.triggerNotification(meds.get(0));
             }

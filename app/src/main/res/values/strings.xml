@@ -2,9 +2,10 @@
     <string name="app_name">Sugarbaby</string>
     <string name="title_home">Home</string>
     <string name="title_meds">Medication</string>
-    <string name="title_shots">Shots</string>
+    <string name="title_shots">Measurements</string>
     <string name="title_food">Food</string>
     <string name="title_journal">Journal</string>
+    <string name="notif_meds">Medication Reminder</string>
 
     <string name="hello_blank_fragment">FILL ME UP</string>
     <string name="dialog_neg">Cancel</string>

@@ -14,10 +14,10 @@ import com.kkontagion.sugarbaby.R;
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
  * to handle interaction events.
- * Use the {@link ShotsFragment#newInstance} factory method to
+ * Use the {@link MeasurementsFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ShotsFragment extends Fragment {
+public class MeasurementsFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -29,7 +29,7 @@ public class ShotsFragment extends Fragment {
 
 //    private OnFragmentInteractionListener mListener;
 
-    public ShotsFragment() {
+    public MeasurementsFragment() {
         // Required empty public constructor
     }
 
@@ -37,11 +37,11 @@ public class ShotsFragment extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @return A new instance of fragment ShotsFragment.
+     * @return A new instance of fragment MeasurementsFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static ShotsFragment newInstance() {
-        ShotsFragment fragment = new ShotsFragment();
+    public static MeasurementsFragment newInstance() {
+        MeasurementsFragment fragment = new MeasurementsFragment();
         Bundle args = new Bundle();
 //        args.putString(ARG_PARAM1, param1);
 //        args.putString(ARG_PARAM2, param2);

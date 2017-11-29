@@ -165,6 +165,8 @@ public class MealCreatorActivity extends AppCompatActivity {
                         f.setType((FoodType) alertLayout.findViewById(R.id.spinner).getTag());
                         foodarray.add(0, f);
                         foodAdapter.notifyDataSetChanged();
+                        cals += f.getCalories();
+                        carbs += f.getCarbs();
 
                         // Add into "database"
                         autoarray.add(f);

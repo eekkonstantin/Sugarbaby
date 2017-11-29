@@ -44,6 +44,7 @@
         android:layout_alignTop="@+id/bt_edit"
         android:layout_toStartOf="@+id/bt_edit"
         android:backgroundTint="@color/colorAccent"
+
         android:hint="@string/food_meal_hint"
         android:textColorHint="@color/background" />
 

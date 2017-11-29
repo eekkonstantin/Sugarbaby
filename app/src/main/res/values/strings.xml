@@ -7,6 +7,8 @@
     <string name="title_journal">Journal</string>
 
     <string name="hello_blank_fragment">FILL ME UP</string>
+    <string name="dialog_neg">Cancel</string>
+    <string name="dialog_pos">Confirm</string>
     <string name="error_meal_creation">Error creating meal. Please try again!</string>
 
     <string name="monster_h1">Fight this monster!</string>
@@ -18,5 +20,6 @@
     <string name="food_meal_totals">%1$.1fg carbohydrates, %2$.0f calories</string>
     <string name="food_meal_hint">What did you eat?</string>
     <string name="food_meal_ok">Create Meal</string>
+    <string name="food_meal_h1">Edit Food Item</string>
 
 </resources>

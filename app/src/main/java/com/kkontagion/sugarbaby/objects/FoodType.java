@@ -9,7 +9,7 @@ import com.kkontagion.sugarbaby.R;
 public enum FoodType {
     CARBS("carbs", R.mipmap.ic_carbs),
     DRINK("drink", R.mipmap.ic_drinks),
-    BURGERS("burgers", R.mipmap.ic_fastfood),
+    BURGERS("sandwich", R.mipmap.ic_fastfood),
     FISH("fish", R.mipmap.ic_fish),
     FRUIT("fruit", R.mipmap.ic_food),
     MEAT("meat", R.mipmap.ic_meat),
@@ -31,6 +31,10 @@ public enum FoodType {
     @Override
     public String toString() {
         return name;
+    }
+
+    public String capitalized() {
+        return name.substring(0,1).toUpperCase() + name.substring(1).toLowerCase();
     }
 
     public int getImg() {

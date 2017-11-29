@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Filter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -49,5 +50,18 @@ public class AutocompleteAdapter extends ArrayAdapter<Food> {
         ((TextView) convertView.findViewById(R.id.tv_details)).setText(item.getNutrition());
 
         return convertView;
+    }
+
+    public boolean contains(String foodName) {
+        for (Food f : data) {
+            if (f.getDesc().equalsIgnoreCase(foodName))
+                return true;
+        }
+        return false;
+    }
+
+    public void add(Food f) {
+        data.add(f);
+        notifyDataSetChanged();
     }
 }

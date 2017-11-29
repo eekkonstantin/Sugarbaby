@@ -1,18 +1,43 @@
 package com.kkontagion.sugarbaby.objects;
 
+import android.text.TextUtils;
+
+import com.kkontagion.sugarbaby.Helper;
+
+import java.io.Serializable;
+
 /**
  * Created by kkontagion on 028 28/11/2017.
  */
 
-public class Food {
+public class Food implements Serializable {
     FoodType type;
     String desc;
     double calories, carbs;
 
     public Food(FoodType type, String desc, double calories, double carbs) {
         this.type = type;
-        this.desc = desc;
+        this.desc = Helper.capitalize(desc);
         this.calories = calories;
+        this.carbs = carbs;
+    }
+
+    public Food(String desc) {
+        this.desc = Helper.capitalize(desc);
+        this.carbs = 0;
+        this.calories = 0;
+        this.type = FoodType.VEGETABLE;
+    }
+
+    public void setType(FoodType type) {
+        this.type = type;
+    }
+
+    public void setCalories(double calories) {
+        this.calories = calories;
+    }
+
+    public void setCarbs(double carbs) {
         this.carbs = carbs;
     }
 

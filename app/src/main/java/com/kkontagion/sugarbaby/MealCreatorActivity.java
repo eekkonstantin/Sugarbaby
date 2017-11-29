@@ -4,13 +4,16 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
-import android.widget.MultiAutoCompleteTextView;
+import android.widget.AutoCompleteTextView;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
@@ -25,15 +28,19 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 public class MealCreatorActivity extends AppCompatActivity {
+    public static final String TAG = "MealCreatorActivity";
+    public static final int CREATE_MEAL = 69;
 
     RecyclerView rv;
     TextView tvTime, tvTotal;
-    MultiAutoCompleteTextView tvComplete;
+    ImageButton btEdit;
+    Button btSubmit;
+    AutoCompleteTextView tvComplete;
 
     FoodAdapter foodAdapter;
     AutocompleteAdapter completeAdapter;
 
-    private Meal meal;
+    private double cals = 0, carbs = 0;
     private Calendar time;
     private ArrayList<Food> autoarray;
     private static SimpleDateFormat df = new SimpleDateFormat("dd MMM yyyy hh:mmaa");
@@ -49,11 +56,12 @@ public class MealCreatorActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         time = Calendar.getInstance();
-        meal = new Meal(Calendar.getInstance());
 
         tvTime = findViewById(R.id.tv_time);
         tvTotal = findViewById(R.id.tv_total);
         tvComplete = findViewById(R.id.tv_auto);
+        btEdit = findViewById(R.id.bt_edit);
+        btSubmit = findViewById(R.id.bt_submit);
         rv = findViewById(R.id.rv);
 
         foodAdapter = new FoodAdapter(this);
@@ -63,10 +71,8 @@ public class MealCreatorActivity extends AppCompatActivity {
         tvComplete.setAdapter(completeAdapter);
         tvComplete.setThreshold(1);
 
-        tvComplete.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
-
         tvTime.setText(df.format(time.getTime()));
-        tvTotal.setText(getString(R.string.food_meal_totals, meal.getCarbs(), meal.getCalories()));
+        tvTotal.setText(getString(R.string.food_meal_totals, cals, carbs));
 
         setupActions();
     }
@@ -94,7 +100,7 @@ public class MealCreatorActivity extends AppCompatActivity {
                 dialog.show();
             }
         });
-
+      
         mDateSetListener = new DatePickerDialog.OnDateSetListener(){
             @Override
             public void onDateSet(DatePicker datePicker, int i, int i1,int i2){
@@ -127,7 +133,24 @@ public class MealCreatorActivity extends AppCompatActivity {
             }
         };
 
+        btEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // TODO dialog to confirm carbs and cals and food type
+            }
+        });
 
-
+        btSubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // TODO generate meal and send to main activity.
+                Meal meal = new Meal(time);
+                meal.setFood(foodAdapter.getItems());
+                Intent i = new Intent();
+                i.putExtra("meal", meal);
+                setResult(RESULT_OK, new Intent().putExtra(TAG, meal));
+                finish();
+            }
+        });
     }
 }

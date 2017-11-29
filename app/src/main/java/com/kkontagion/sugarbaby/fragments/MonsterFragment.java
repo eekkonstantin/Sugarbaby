@@ -5,7 +5,9 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -25,6 +27,8 @@ public class MonsterFragment extends Fragment {
     ImageView img;
 
     GoalsAdapter adapter;
+
+    private static int toggle = GoalsAdapter.NONE;
 
 
     public MonsterFragment() {
@@ -62,9 +66,36 @@ public class MonsterFragment extends Fragment {
         lv.setAdapter(adapter);
 
         img = v.findViewById(R.id.img_monster);
-        Glide.with(getContext()).load(R.raw.angryjumpybear).into(img);
+        Glide.with(getContext()).load(R.raw.runningnoob).into(img);
+
+        v.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                toggle++;
+                if (toggle == 3)
+                    toggle = 0;
+                Log.d("uhh", "onClick: " + toggle);
+                adapter.setDone(toggle);
+                lv.setAdapter(adapter);
+                setImg();
+            }
+        });
 
         return v;
+    }
+
+    public void setImg() {
+        switch (toggle) {
+            case GoalsAdapter.ALL:
+                Glide.with(getContext()).load(R.raw.angryjumpybear).into(img);
+                break;
+            case GoalsAdapter.SOME:
+                Glide.with(getContext()).load(R.raw.roamingknight).into(img);
+                break;
+            case GoalsAdapter.NONE:
+                Glide.with(getContext()).load(R.raw.runningnoob).into(img);
+                break;
+        }
     }
 
 }

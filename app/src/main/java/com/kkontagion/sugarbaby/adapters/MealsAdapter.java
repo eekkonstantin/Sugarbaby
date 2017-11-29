@@ -72,16 +72,18 @@ public class MealsAdapter extends RecyclerView.Adapter<BasicCard> {
     public void onBindViewHolder(BasicCard holder, int position) {
         Meal item = meals.get(position);
         holder.tvHeader.setText(item.getDate());
-        if (item.getAte() == null) // IS TESTING
-            holder.tvSubtext.setText(ctx.getString(R.string.food_meal_totals, 50.0, 3.0));
-        else
+        if (item.getAte() == null) { // IS TESTING
+            Random r = new Random();
+            holder.tvSubtext.setText(ctx.getString(R.string.food_meal_totals, 15 + r.nextInt(10) + r.nextFloat(), 50.0 + r.nextInt(150)));
+        } else
             holder.tvSubtext.setText(ctx.getString(R.string.food_meal_totals, item.getCarbs(), item.getCalories()));
 
         int ico = R.mipmap.ic_moon;
         if (item.getCalendarDate().get(Calendar.HOUR_OF_DAY) < 18
-                || item.getCalendarDate().get(Calendar.HOUR_OF_DAY) > 6)
+                && item.getCalendarDate().get(Calendar.HOUR_OF_DAY) > 6)
             ico = R.mipmap.ic_sun;
-        Glide.with(ctx).load(ico).into(holder.icon);
+//        Glide.with(ctx).load(ico).into(holder.icon);
+        holder.icon.setImageDrawable(ctx.getDrawable(ico));
     }
 
     /**

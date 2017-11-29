@@ -30,25 +30,31 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             Fragment frag = null;
+            String tag = "";
             switch (item.getItemId()) {
                 case R.id.navigation_home:
                     frag = MonsterFragment.newInstance();
+                    tag = "monster";
                     break;
                 case R.id.navigation_meds:
                     frag = MedsFragment.newInstance();
+                    tag = "meds";
                     break;
                 case R.id.navigation_shots:
                     frag = ShotsFragment.newInstance();
+                    tag = "shots";
                     break;
                 case R.id.navigation_food:
                     frag = FoodFragment.newInstance();
+                    tag = "food";
                     break;
                 case R.id.navigation_journal:
                     frag = JournalFragment.newInstance();
+                    tag = "journal";
                     break;
             }
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE).replace(R.id.content, frag).commit();
+            transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE).replace(R.id.content, frag, tag).commit();
             return true;
         }
 
@@ -67,6 +73,4 @@ public class MainActivity extends AppCompatActivity {
         transaction.replace(R.id.content, MonsterFragment.newInstance());
         transaction.commit();
     }
-
-
 }

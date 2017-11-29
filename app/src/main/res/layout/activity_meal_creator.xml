@@ -13,17 +13,15 @@
         android:id="@+id/tv_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="@dimen/lrg_padding"
-        android:layout_marginTop="@dimen/reg_padding"
         android:drawablePadding="@dimen/reg_padding"
         android:drawableStart="@drawable/mini_clock"
         android:drawableTint="@color/colorPrimaryDark"
         android:gravity="center"
         android:text="Time"
         android:textAppearance="@android:style/TextAppearance.Material.Subhead"
-        android:textColor="@color/backgroundDark" />
+        android:textColor="@color/backgroundDark"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:id="@+id/tv_total"

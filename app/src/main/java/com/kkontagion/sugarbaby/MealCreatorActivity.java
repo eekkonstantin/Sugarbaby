@@ -119,7 +119,7 @@ public class MealCreatorActivity extends AppCompatActivity {
            int hour = time.get(Calendar.HOUR_OF_DAY);
            int minutes = time.get(Calendar.MINUTE);
 
-           TimePickerDialog dialog = new TimePickerDialog(MealCreatorActivity.this,mTimeSetListener,hour,minutes,false);
+           TimePickerDialog dialog = new TimePickerDialog(MealCreatorActivity.this, R.style.TimePickerTheme, mTimeSetListener,hour,minutes,false);
            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
            dialog.show();
           }

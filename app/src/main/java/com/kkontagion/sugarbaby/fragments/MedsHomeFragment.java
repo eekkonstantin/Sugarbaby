@@ -2,8 +2,10 @@ package com.kkontagion.sugarbaby.fragments;
 
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,17 +14,20 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
 import com.bumptech.glide.Glide;
 import com.kkontagion.sugarbaby.R;
 import com.kkontagion.sugarbaby.adapters.BasicCard;
 import com.kkontagion.sugarbaby.objects.MedicineFake;
+import com.kkontagion.sugarbaby.views.MultiSpinner;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collections;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -36,6 +41,10 @@ public class MedsHomeFragment extends Fragment {
     RecyclerView rvTodo, rvPast;
     ArrayList<MedicineFake> meds;
     ArrayList<String[]> medsPast;
+
+
+    FutureAdapter future;
+    List<String> items;
 
 
     private static SimpleDateFormat df = new SimpleDateFormat("dd MMM yyyy hh:mmaa");
@@ -90,7 +99,8 @@ public class MedsHomeFragment extends Fragment {
         rvTodo = v.findViewById(R.id.rv_todo);
 
         rvPast.setAdapter(new PastAdapter(getContext(), medsPast));
-        rvTodo.setAdapter(new FutureAdapter(getContext(), meds));
+        future = new FutureAdapter(getContext(), meds);
+        rvTodo.setAdapter(future);
 
         // FOR DEMO
         v.setOnClickListener(new View.OnClickListener() {
@@ -106,6 +116,8 @@ public class MedsHomeFragment extends Fragment {
     }
 
     private void initArrays() {
+        items = Arrays.asList(getResources().getStringArray(R.array.hour_of_day));
+
         meds = new ArrayList<>();
         ArrayList<Integer> regs = new ArrayList<>(Arrays.asList(8,20));
         meds.add(new MedicineFake("Tolbutamide 500mg", 1, "tab", regs));
@@ -144,12 +156,50 @@ public class MedsHomeFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        MenuItem add = menu.add("New");
+        MenuItem add = menu.add(getString(R.string.meds_add));
         add.setIcon(R.mipmap.ic_add);
         add.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
-                Log.d(getTag(), "Clicked: " + menuItem.getTitle());
+                final View alertLayout = getLayoutInflater().inflate(R.layout.dialog_meds_add, null);
+                MultiSpinner ms = alertLayout.findViewById(R.id.spinner);
+
+                final ArrayList<Integer> sel = new ArrayList<>();
+
+                ms.setItems(items, items.get(0), new MultiSpinner.MultiSpinnerListener() {
+                    @Override
+                    public void onItemsSelected(boolean[] selected) {
+                        for (int i=0; i<selected.length; i++) {
+                            if (selected[i])
+                                sel.add(i);
+                        }
+                    }
+                });
+
+                // dialog to confirm carbs and cals and food type
+                AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
+                alert.setTitle(R.string.meds_add).setView(alertLayout)
+                        .setPositiveButton(R.string.dialog_pos, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface di, int i) {
+                                EditText etName = alertLayout.findViewById(R.id.et_name);
+                                EditText etUnit = alertLayout.findViewById(R.id.et_units);
+                                EditText etDosage = alertLayout.findViewById(R.id.et_dosage);
+
+                                MedicineFake med = new MedicineFake(
+                                        etName.getText().toString(),
+                                        Double.parseDouble(etDosage.getText().toString()),
+                                        etUnit.getText().toString(),
+                                        sel
+                                );
+                                meds.add(med);
+                                Collections.sort(meds);
+                                future.notifyDataSetChanged();
+
+                                Log.d("fuck", "onClick: " + sel.get(0));
+                            }
+                        });
+                alert.create().show();
                 return false;
             }
         });
@@ -181,6 +231,8 @@ public class MedsHomeFragment extends Fragment {
 
         @Override
         public int getItemCount() {
+            if (data.size() > 3)
+                return 3;
             return data.size();
         }
     }

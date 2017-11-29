@@ -99,6 +99,7 @@ public class MainActivity extends AppCompatActivity implements MedsHomeFragment.
                 .setContentText(out);
         Intent open = new Intent(this, MainActivity.class);
         open.putExtra("tag", "meds");
+        open.setAction("Done!");
 
         // The stack builder object will contain an artificial back stack for the
         // started Activity.

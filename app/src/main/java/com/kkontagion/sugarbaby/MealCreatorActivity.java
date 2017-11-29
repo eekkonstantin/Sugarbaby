@@ -15,6 +15,8 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.DatePicker;
+import android.widget.TimePicker;
 
 import com.kkontagion.sugarbaby.adapters.AutocompleteAdapter;
 import com.kkontagion.sugarbaby.adapters.FoodAdapter;
@@ -44,6 +46,8 @@ public class MealCreatorActivity extends AppCompatActivity {
     private Calendar time;
     private ArrayList<Food> autoarray, foodarray;
     private static SimpleDateFormat df = new SimpleDateFormat("dd MMM yyyy hh:mmaa");
+    private DatePickerDialog.OnDateSetListener mDateSetListener;
+    private TimePickerDialog.OnTimeSetListener mTimeSetListener;
     Food f;
 
     @Override
@@ -79,7 +83,7 @@ public class MealCreatorActivity extends AppCompatActivity {
         autoarray.add(new Food(FoodType.VEGETABLE, "Steamed Carrots with Garlic-Ginger Butter", 69, 10.3));
         autoarray.add(new Food(FoodType.BURGERS, "Black bean burger", 182, 15.6));
         autoarray.add(new Food(FoodType.SWEETS, "Frozen yoghurt", 100, 18.6));
-        
+
         foodarray = new ArrayList<>();
         foodarray.add(new Food(FoodType.MEAT, "Tofu bites", 51, 1.4));
         foodarray.add(new Food(FoodType.VEGETABLE, "Steamed Carrots with Garlic-Ginger Butter", 69, 10.3));
@@ -93,8 +97,45 @@ public class MealCreatorActivity extends AppCompatActivity {
             public void onClick(View view) {
                 // TODO datepicker dialog, followed by time picker dialog.
                 // On complete (both selected), update tvTime.setText(result) using the same format as `df` above.
+                DatePickerDialog dialog = new DatePickerDialog(
+                   MealCreatorActivity.this,
+                   R.style.TimePickerTheme,
+                   mDateSetListener,
+                 time.get(Calendar.YEAR),time.get(Calendar.MONTH),time.get(Calendar.DAY_OF_MONTH));
+                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                 dialog.show();
             }
         });
+
+      mDateSetListener = new DatePickerDialog.OnDateSetListener(){
+       @Override
+       public void onDateSet(DatePicker datePicker, int i, int i1,int i2){
+           year = i;
+           month = i1;
+           day = i2;
+
+           time.set(i, i1, i2);
+
+           hour = time.get(Calendar.HOUR_OF_DAY);
+           minutes = time.get(Calendar.MINUTE);
+
+           TimePickerDialog dialog = new TimePickerDialog(MealCreatorActivity.this,mTimeSetListener,hour,minutes,false);
+           dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+           dialog.show();
+          }
+        };
+
+       mTimeSetListener = new TimePickerDialog.OnTimeSetListener(){
+         @Override
+         public void onTimeSet(TimePicker timePicker, int i , int i1){
+           hour = i;
+           minutes = i1;
+           time.set(Calendar.HOUR_OF_DAY,i);
+           time.set(Calendar.MINUTE,i1);
+//                Log.d("penis", "onTimeSet: " + time.toString());
+           tvTime.setText(df.format(time.getTime()));
+           }
+        };
 
         tvComplete.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

@@ -88,10 +88,10 @@ public class MealCreatorActivity extends AppCompatActivity {
         autoarray.add(new Food(FoodType.SWEETS, "Frozen yoghurt", 100, 18.6));
 
         foodarray = new ArrayList<>();
-        foodarray.add(new Food(FoodType.MEAT, "Tofu bites", 51, 1.4));
-        foodarray.add(new Food(FoodType.VEGETABLE, "Steamed Carrots with Garlic-Ginger Butter", 69, 10.3));
-        foodarray.add(new Food(FoodType.BURGERS, "Black bean burger", 182, 15.6));
-        foodarray.add(new Food(FoodType.SWEETS, "Frozen yoghurt", 100, 18.6));
+//        foodarray.add(new Food(FoodType.MEAT, "Tofu bites", 51, 1.4));
+//        foodarray.add(new Food(FoodType.VEGETABLE, "Steamed Carrots with Garlic-Ginger Butter", 69, 10.3));
+//        foodarray.add(new Food(FoodType.BURGERS, "Black bean burger", 182, 15.6));
+//        foodarray.add(new Food(FoodType.SWEETS, "Frozen yoghurt", 100, 18.6));
     }
 
     private void setupActions() {
@@ -199,14 +199,14 @@ public class MealCreatorActivity extends AppCompatActivity {
                 .setPositiveButton(R.string.dialog_pos, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface di, int i) {
-                        f.setCalories( Double.parseDouble(((TextView) alertLayout.findViewById(R.id.et_cals)).getText().toString()) );
+                        f.setCalories( Integer.parseInt(((TextView) alertLayout.findViewById(R.id.et_cals)).getText().toString()) );
                         f.setCarbs( Double.parseDouble(((TextView) alertLayout.findViewById(R.id.et_carbs)).getText().toString()) );
                         f.setType((FoodType) alertLayout.findViewById(R.id.spinner).getTag());
                         foodarray.add(0, f);
                         foodAdapter.notifyDataSetChanged();
                         cals += f.getCalories();
                         carbs += f.getCarbs();
-                        tvTotal.setText(getString(R.string.food_meal_totals, cals, carbs));
+                        tvTotal.setText(getString(R.string.food_meal_totals, carbs, cals));
 
                         // Add into "database"
                         autoarray.add(f);

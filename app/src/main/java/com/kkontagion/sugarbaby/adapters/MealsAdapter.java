@@ -76,7 +76,7 @@ public class MealsAdapter extends RecyclerView.Adapter<BasicCard> {
             Random r = new Random();
             holder.tvSubtext.setText(ctx.getString(R.string.food_meal_totals, 15 + r.nextInt(10) + r.nextFloat(), 50.0 + r.nextInt(150)));
         } else
-            holder.tvSubtext.setText(ctx.getString(R.string.food_meal_totals, item.getCarbs(), item.getCalories()));
+            holder.tvSubtext.setText(item.getNutrition());
 
         int ico = R.mipmap.ic_moon;
         if (item.getCalendarDate().get(Calendar.HOUR_OF_DAY) < 18

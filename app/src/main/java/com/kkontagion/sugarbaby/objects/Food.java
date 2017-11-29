@@ -13,9 +13,10 @@ import java.io.Serializable;
 public class Food implements Serializable {
     FoodType type;
     String desc;
-    double calories, carbs;
+    int calories;
+    double carbs;
 
-    public Food(FoodType type, String desc, double calories, double carbs) {
+    public Food(FoodType type, String desc, int calories, double carbs) {
         this.type = type;
         this.desc = Helper.capitalize(desc);
         this.calories = calories;
@@ -33,7 +34,7 @@ public class Food implements Serializable {
         this.type = type;
     }
 
-    public void setCalories(double calories) {
+    public void setCalories(int calories) {
         this.calories = calories;
     }
 
@@ -49,7 +50,7 @@ public class Food implements Serializable {
         return desc;
     }
 
-    public double getCalories() {
+    public int getCalories() {
         return calories;
     }
 

@@ -13,7 +13,8 @@ public class Meal implements Serializable {
     private Calendar date;
 
     private ArrayList<Food> ate;
-    private double carbs = 0, cals = 0;
+    private double carbs = 0;
+    private int cals = 0;
 
     private static SimpleDateFormat df = new SimpleDateFormat("dd MMM yyyy hh:mmaa");
 
@@ -47,7 +48,7 @@ public class Meal implements Serializable {
         return ate;
     }
 
-    public double getCalories() {
+    public int getCalories() {
         cals = 0;
         for (Food f : ate)
             cals += f.getCalories();
@@ -59,6 +60,10 @@ public class Meal implements Serializable {
         for (Food f : ate)
             carbs += f.getCarbs();
         return carbs;
+    }
+
+    public String getNutrition() {
+        return getCarbs() + "g carbohydrates, " + getCalories() + "cal";
     }
 
     public void setFood(ArrayList<Food> food) {

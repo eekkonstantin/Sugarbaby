@@ -40,7 +40,7 @@ public class MealCreatorActivity extends AppCompatActivity {
     private DatePickerDialog.OnDateSetListener mDateSetListener;
     private TimePickerDialog.OnTimeSetListener mTimeSetListener;
 
-    int day,month,year,hour,minute;
+    int day,month,year,hour,minutes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,9 +105,9 @@ public class MealCreatorActivity extends AppCompatActivity {
                 time.set(i, i1, i2);
 
                 hour = time.get(Calendar.HOUR_OF_DAY);
-                minute = time.get(Calendar.MINUTE);
+                minutes = time.get(Calendar.MINUTE);
 
-                TimePickerDialog dialog = new TimePickerDialog(MealCreatorActivity.this,mTimeSetListener,hour,minute,false);
+                TimePickerDialog dialog = new TimePickerDialog(MealCreatorActivity.this,mTimeSetListener,hour,minutes,false);
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 dialog.show();
             }
@@ -119,7 +119,7 @@ public class MealCreatorActivity extends AppCompatActivity {
             @Override
             public void onTimeSet(TimePicker timePicker, int i , int i1){
                 hour = i;
-                minute = i1;
+                minutes = i1;
                 time.set(Calendar.HOUR_OF_DAY,i);
                 time.set(Calendar.MINUTE,i1);
 //                Log.d("penis", "onTimeSet: " + time.toString());

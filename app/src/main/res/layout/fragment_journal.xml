@@ -8,6 +8,6 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:text="Doctor's appointments, height/weight tracking, BP tracking, symptom tracking (e.g. tired today, feeling giddy today)" />
 
 </FrameLayout>

@@ -74,7 +74,6 @@ public class MonsterFragment extends Fragment {
                 toggle++;
                 if (toggle == 3)
                     toggle = 0;
-                Log.d("uhh", "onClick: " + toggle);
                 adapter.setDone(toggle);
                 lv.setAdapter(adapter);
                 setImg();

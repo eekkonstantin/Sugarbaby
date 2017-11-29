@@ -91,7 +91,6 @@ public class MainActivity extends AppCompatActivity implements MedsHomeFragment.
 
     @Override
     public void triggerNotification(MedicineFake med) {
-        Log.d(TAG, "triggerNotification: " + med.getName());
         String out = "Have you taken your " + med.getName() + "?";
         NotificationCompat.Builder nBuilder = new NotificationCompat.Builder(this, CHANNEL_ID)
                 .setSmallIcon(R.mipmap.ic_meds)

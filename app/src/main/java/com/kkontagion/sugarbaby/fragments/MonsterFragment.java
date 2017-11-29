@@ -66,7 +66,7 @@ public class MonsterFragment extends Fragment {
         lv.setAdapter(adapter);
 
         img = v.findViewById(R.id.img_monster);
-        Glide.with(getContext()).load(R.raw.runningnoob).into(img);
+        Glide.with(getContext()).load(R.raw.angryjumpybear).into(img);
 
         v.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,13 +85,13 @@ public class MonsterFragment extends Fragment {
 
     public void setImg() {
         switch (toggle) {
-            case GoalsAdapter.ALL:
+            case GoalsAdapter.NONE:
                 Glide.with(getContext()).load(R.raw.angryjumpybear).into(img);
                 break;
             case GoalsAdapter.SOME:
                 Glide.with(getContext()).load(R.raw.roamingknight).into(img);
                 break;
-            case GoalsAdapter.NONE:
+            case GoalsAdapter.ALL:
                 Glide.with(getContext()).load(R.raw.runningnoob).into(img);
                 break;
         }

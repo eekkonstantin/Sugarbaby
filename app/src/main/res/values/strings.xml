@@ -22,4 +22,7 @@
     <string name="food_meal_ok">Create Meal</string>
     <string name="food_meal_h1">Edit Food Item</string>
 
+    <string name="meds_h1">Up Next</string>
+    <string name="meds_h2">Recent</string>
+
 </resources>

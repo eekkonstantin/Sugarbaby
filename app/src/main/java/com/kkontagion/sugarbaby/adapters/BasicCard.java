@@ -12,8 +12,8 @@ import com.kkontagion.sugarbaby.R;
  */
 
 public class BasicCard extends RecyclerView.ViewHolder {
-    TextView tvHeader, tvSubtext;
-    ImageView icon;
+    public TextView tvHeader, tvSubtext;
+    public ImageView icon;
 
     public BasicCard(View v) {
         super(v);

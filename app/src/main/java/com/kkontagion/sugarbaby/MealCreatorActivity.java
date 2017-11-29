@@ -1,12 +1,15 @@
 package com.kkontagion.sugarbaby;
 
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
@@ -110,14 +113,11 @@ public class MealCreatorActivity extends AppCompatActivity {
       mDateSetListener = new DatePickerDialog.OnDateSetListener(){
        @Override
        public void onDateSet(DatePicker datePicker, int i, int i1,int i2){
-           year = i;
-           month = i1;
-           day = i2;
 
            time.set(i, i1, i2);
 
-           hour = time.get(Calendar.HOUR_OF_DAY);
-           minutes = time.get(Calendar.MINUTE);
+           int hour = time.get(Calendar.HOUR_OF_DAY);
+           int minutes = time.get(Calendar.MINUTE);
 
            TimePickerDialog dialog = new TimePickerDialog(MealCreatorActivity.this,mTimeSetListener,hour,minutes,false);
            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -128,8 +128,6 @@ public class MealCreatorActivity extends AppCompatActivity {
        mTimeSetListener = new TimePickerDialog.OnTimeSetListener(){
          @Override
          public void onTimeSet(TimePicker timePicker, int i , int i1){
-           hour = i;
-           minutes = i1;
            time.set(Calendar.HOUR_OF_DAY,i);
            time.set(Calendar.MINUTE,i1);
 //                Log.d("penis", "onTimeSet: " + time.toString());

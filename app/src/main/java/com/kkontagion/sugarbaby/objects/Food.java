@@ -66,4 +66,13 @@ public class Food implements Serializable {
     public String toString() {
         return desc;
     }
+
+    public boolean filterContains(String s) {
+        String[] spl = desc.split(" ");
+        for (String d : spl) {
+            if (d.toLowerCase().startsWith(s.toLowerCase()))
+                return true;
+        }
+        return false;
+    }
 }

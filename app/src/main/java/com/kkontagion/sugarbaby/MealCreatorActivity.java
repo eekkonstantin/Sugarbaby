@@ -2,6 +2,7 @@ package com.kkontagion.sugarbaby;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
@@ -10,7 +11,9 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -72,6 +75,7 @@ public class MealCreatorActivity extends AppCompatActivity {
         foodAdapter = new FoodAdapter(this, foodarray);
         rv.setAdapter(foodAdapter);
         completeAdapter = new AutocompleteAdapter(this, R.layout.item_autocomplete, autoarray);
+        Log.d(TAG, "onCreate: completeAdapter: " + completeAdapter.getCount());
         tvComplete.setAdapter(completeAdapter);
         tvComplete.setThreshold(1);
 
@@ -130,7 +134,6 @@ public class MealCreatorActivity extends AppCompatActivity {
          public void onTimeSet(TimePicker timePicker, int i , int i1){
            time.set(Calendar.HOUR_OF_DAY,i);
            time.set(Calendar.MINUTE,i1);
-//                Log.d("penis", "onTimeSet: " + time.toString());
            tvTime.setText(df.format(time.getTime()));
            }
         };
@@ -209,15 +212,10 @@ public class MealCreatorActivity extends AppCompatActivity {
                         tvTotal.setText(getString(R.string.food_meal_totals, carbs, cals));
 
                         // Add into "database"
-                        autoarray.add(f);
-                        resetAutocomplete();
+                        completeAdapter.add(f);
+                        tvComplete.setText("");
                     }
                 });
         alert.create().show();
-    }
-
-    private void resetAutocomplete() {
-        completeAdapter = new AutocompleteAdapter(MealCreatorActivity.this, R.layout.item_autocomplete, autoarray);
-        tvComplete.setAdapter(completeAdapter);
     }
 }

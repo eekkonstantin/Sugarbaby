@@ -1,5 +1,6 @@
 package com.kkontagion.sugarbaby.objects;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -8,11 +9,12 @@ import java.util.Calendar;
  * Created by kkontagion on 028 28/11/2017.
  */
 
-public class Meal {
+public class Meal implements Serializable {
     private Calendar date;
 
     private ArrayList<Food> ate;
-    private double carbs = 0, cals = 0;
+    private double carbs = 0;
+    private int cals = 0;
 
     private static SimpleDateFormat df = new SimpleDateFormat("dd MMM yyyy hh:mmaa");
 
@@ -38,21 +40,33 @@ public class Meal {
         return df.format(date.getTime());
     }
 
+    public Calendar getCalendarDate() {
+        return date;
+    }
+
     public ArrayList<Food> getAte() {
         return ate;
     }
 
-    public void calculateTotals() {
-        for (Food f : ate) {
-
-        }
-    }
-
-    public double getCalories() {
+    public int getCalories() {
+        cals = 0;
+        for (Food f : ate)
+            cals += f.getCalories();
         return cals;
     }
 
     public double getCarbs() {
+        carbs = 0;
+        for (Food f : ate)
+            carbs += f.getCarbs();
         return carbs;
+    }
+
+    public String getNutrition() {
+        return getCarbs() + "g carbohydrates, " + getCalories() + "cal";
+    }
+
+    public void setFood(ArrayList<Food> food) {
+        this.ate = food;
     }
 }

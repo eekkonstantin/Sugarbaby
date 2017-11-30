@@ -22,14 +22,38 @@ public class GoalsAdapter extends RecyclerView.Adapter<BasicCard> {
     private Context ctx;
     private ArrayList<Goal> goals;
 
+    public static final int NONE = 0;
+    public static final int SOME = 1;
+    public static final int ALL = 2;
+
     public GoalsAdapter(Context ctx) {
         this.ctx = ctx;
         goals = new ArrayList<>();
         goals.add(new Goal(R.mipmap.ic_shots, "Keep blood sugar levels below X for 1 week"));
         goals.add(new Goal(R.mipmap.ic_food, "Eat 3 types of fruits a day for 1 week"));
-        goals.get(1).setDone(true);
         goals.add(new Goal(R.mipmap.ic_food, "Eat 2 servings of vegetables for every meal for 1 week"));
         goals.add(new Goal(R.mipmap.ic_heart, "Lose 1kg in 2 months", "Active from: 21 Nov 2017"));
+    }
+
+    public void setDone(int done) {
+        switch (done) {
+            case ALL:
+                for (Goal g : goals)
+                    g.setDone(true);
+                break;
+            case SOME:
+                for (int i=0; i<goals.size(); i++) {
+                    if (i % 3 == 0)
+                        goals.get(i).setDone(true);
+                    else
+                        goals.get(i).setDone(false);
+                }
+                break;
+            case NONE:
+                for (Goal g : goals)
+                    g.setDone(false);
+        }
+        notifyDataSetChanged();
     }
 
     /**

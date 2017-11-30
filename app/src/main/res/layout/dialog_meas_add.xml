@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:padding="@dimen/reg_padding">
+
+    <RelativeLayout
+        android:id="@+id/rl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:gravity="center">
+
+        <EditText
+            android:id="@+id/et_meas"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="false"
+            android:layout_centerHorizontal="false"
+            android:layout_toStartOf="@+id/tv_unit"
+            android:backgroundTint="@color/colorAccent"
+            android:gravity="center"
+            android:hint="e.g. Tolbutamide 500mg"
+            android:inputType="number|numberDecimal"
+            android:selectAllOnFocus="true"
+            android:textColorHint="@color/background" />
+
+        <TextView
+            android:id="@+id/tv_unit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/et_meas"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="@dimen/reg_padding"
+            android:gravity="center_vertical|start"
+            android:minEms="2"
+            android:text="mg/dL"
+            android:textSize="18sp" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="false"
+        android:layout_below="@+id/rl"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="@dimen/reg_padding"
+        android:drawablePadding="@dimen/reg_padding"
+        android:drawableStart="@drawable/mini_clock"
+        android:drawableTint="@color/colorPrimaryDark"
+        android:gravity="center"
+        android:text="Time"
+        android:textAppearance="@android:style/TextAppearance.Material.Subhead"
+        android:textColor="@color/backgroundDark" />
+
+
+</RelativeLayout>

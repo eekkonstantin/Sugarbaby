@@ -13,15 +13,17 @@
         android:id="@+id/tv_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/lrg_padding"
+        android:layout_marginTop="@dimen/reg_padding"
         android:drawablePadding="@dimen/reg_padding"
         android:drawableStart="@drawable/mini_clock"
         android:drawableTint="@color/colorPrimaryDark"
         android:gravity="center"
         android:text="Time"
         android:textAppearance="@android:style/TextAppearance.Material.Subhead"
-        android:textColor="@color/backgroundDark"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:textColor="@color/backgroundDark" />
 
     <TextView
         android:id="@+id/tv_total"
@@ -33,20 +35,21 @@
         android:textAppearance="@android:style/TextAppearance.Material.Subhead"
         android:textColor="@color/colorAccentDark" />
 
-    <MultiAutoCompleteTextView
+    <AutoCompleteTextView
         android:id="@+id/tv_auto"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/imageButton"
+        android:layout_alignBottom="@+id/bt_edit"
         android:layout_alignParentStart="true"
-        android:layout_alignTop="@+id/imageButton"
-        android:layout_toStartOf="@+id/imageButton"
+        android:layout_alignTop="@+id/bt_edit"
+        android:layout_toStartOf="@+id/bt_edit"
         android:backgroundTint="@color/colorAccent"
+
         android:hint="@string/food_meal_hint"
         android:textColorHint="@color/background" />
 
     <ImageButton
-        android:id="@+id/imageButton"
+        android:id="@+id/bt_edit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
@@ -61,7 +64,17 @@
         android:id="@+id/rv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_above="@+id/bt_submit"
         android:layout_below="@+id/tv_auto"
         android:layout_centerHorizontal="true"
         app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
+
+    <Button
+        android:id="@+id/bt_submit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:backgroundTint="@color/colorPrimaryDark"
+        android:text="@string/food_meal_ok"
+        android:textColor="@color/colorAccentLight" />
 </RelativeLayout>

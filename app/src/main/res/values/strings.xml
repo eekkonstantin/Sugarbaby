@@ -2,13 +2,19 @@
     <string name="app_name">Sugarbaby</string>
     <string name="title_home">Home</string>
     <string name="title_meds">Medication</string>
-    <string name="title_shots">Shots</string>
+    <string name="title_shots">Measurements</string>
     <string name="title_food">Food</string>
     <string name="title_journal">Journal</string>
+    <string name="notif_meds">Medication Reminder</string>
 
     <string name="hello_blank_fragment">FILL ME UP</string>
+    <string name="dialog_neg">Cancel</string>
+    <string name="dialog_pos">Confirm</string>
+    <string name="error_meal_creation">Error creating meal. Please try again!</string>
 
-    <string name="monster_h1">Fight this monster!</string>
+    <string name="monster_h1_fight">Fight this monster!</string>
+    <string name="monster_h1_help">It\'s weakening!\nJust a little more!</string>
+    <string name="monster_h1_ded">The monster is powerless...\nGreat job!</string>
     <string name="goals_h1">Keep blood sugar level before bedtime between 90\-150mg/dL for 1 week</string>
 
     <string name="food_h1">What\'s for %1$s?</string>
@@ -16,5 +22,40 @@
     <string name="food_h2">Past Meals</string>
     <string name="food_meal_totals">%1$.1fg carbohydrates, %2$.0f calories</string>
     <string name="food_meal_hint">What did you eat?</string>
+    <string name="food_meal_ok">Create Meal</string>
+    <string name="food_meal_h1">Edit Food Item</string>
+
+    <string name="meds_h1">Up Next</string>
+    <string name="meds_h2">Recent</string>
+    <string name="meds_add">Add New Medicine</string>
+
+    <string name="meas_h1">New %1$s Measurement</string>
+
+    <string-array name="hour_of_day">
+        <item>12AM</item>
+        <item>1AM</item>
+        <item>2AM</item>
+        <item>3AM</item>
+        <item>4AM</item>
+        <item>5AM</item>
+        <item>6AM</item>
+        <item>7AM</item>
+        <item>8AM</item>
+        <item>9AM</item>
+        <item>10AM</item>
+        <item>11AM</item>
+        <item>12PM</item>
+        <item>1PM</item>
+        <item>2PM</item>
+        <item>3PM</item>
+        <item>4PM</item>
+        <item>5PM</item>
+        <item>6PM</item>
+        <item>7PM</item>
+        <item>8PM</item>
+        <item>9PM</item>
+        <item>10PM</item>
+        <item>11PM</item>
+    </string-array>
 
 </resources>

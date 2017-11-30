@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.kkontagion.sugarbaby.fragments.MonsterFragment">
+    tools:context="com.kkontagion.sugarbaby.fragments.MonsterFragment"
+    android:layout_margin="@dimen/reg_padding">
 
     <!-- TODO: Update blank fragment layout -->
 
@@ -18,22 +19,23 @@
         app:srcCompat="@mipmap/ic_monster" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/tv_h1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/img_monster"
         android:layout_centerHorizontal="true"
         android:layout_margin="@dimen/reg_padding"
-        android:text="@string/monster_h1"
+        android:gravity="center"
+        android:text="@string/monster_h1_fight"
         android:textAppearance="@android:style/TextAppearance.Material.Title"
         android:textColor="@color/colorAccent"
-        android:textSize="24sp" />
+        android:textSize="22sp" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/lv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/textView"
+        android:layout_below="@+id/tv_h1"
         android:layout_centerHorizontal="true"
         app:layoutManager="android.support.v7.widget.LinearLayoutManager"/>
 </RelativeLayout>

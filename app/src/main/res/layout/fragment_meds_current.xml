@@ -2,12 +2,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.kkontagion.sugarbaby.fragments.JournalFragment">
+    tools:context="com.kkontagion.sugarbaby.fragments.MedsCurrentFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Doctor's appointments, height/weight tracking, BP tracking, symptom tracking (e.g. tired today, feeling giddy today)" />
+        android:text="what medicines the user is taking, with stats like how many times the medication has been missed." />
 
 </FrameLayout>

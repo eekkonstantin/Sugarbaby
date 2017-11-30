@@ -22,13 +22,9 @@ public class FoodAdapter extends RecyclerView.Adapter<BasicCard> {
     private Context ctx;
     private ArrayList<Food> food;
 
-    public FoodAdapter(Context ctx) {
+    public FoodAdapter(Context ctx, ArrayList<Food> food) {
         this.ctx = ctx;
-        this.food = new ArrayList<>();
-        food.add(new Food(FoodType.MEAT, "Tofu bites", 51, 1.4));
-        food.add(new Food(FoodType.VEGETABLE, "Steamed Carrots with Garlic-Ginger Butter", 69, 10.3));
-        food.add(new Food(FoodType.BURGERS, "Black bean burger", 182, 15.6));
-        food.add(new Food(FoodType.SWEETS, "Frozen yoghurt", 100, 18.6));
+        this.food = food;
     }
 
     @Override
@@ -48,5 +44,9 @@ public class FoodAdapter extends RecyclerView.Adapter<BasicCard> {
     @Override
     public int getItemCount() {
         return food.size();
+    }
+
+    public ArrayList<Food> getItems() {
+        return food;
     }
 }

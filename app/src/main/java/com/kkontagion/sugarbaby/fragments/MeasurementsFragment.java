@@ -175,8 +175,8 @@ public class MeasurementsFragment extends Fragment {
         xAxis.setGranularity(1f); // minimum axis-step (interval) is 1
         xAxis.setValueFormatter(formatter);
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-        xAxis.setAxisMinimum(0);
-        xAxis.setAxisMaximum(12);
+        xAxis.setAxisMinimum(xAxis.getAxisMinimum() - 1);
+        xAxis.setAxisMaximum(xAxis.getAxisMaximum() + 1);
         gvGlucose.getAxisRight().setEnabled(false);
         gvGlucose.getAxisLeft().setEnabled(false);
         gvGlucose.getAxis(YAxis.AxisDependency.LEFT).setDrawGridLines(false);

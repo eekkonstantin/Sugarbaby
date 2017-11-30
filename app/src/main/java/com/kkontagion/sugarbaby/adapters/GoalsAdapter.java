@@ -22,9 +22,9 @@ public class GoalsAdapter extends RecyclerView.Adapter<BasicCard> {
     private Context ctx;
     private ArrayList<Goal> goals;
 
-    public static final int ALL = 0;
+    public static final int NONE = 0;
     public static final int SOME = 1;
-    public static final int NONE = 2;
+    public static final int ALL = 2;
 
     public GoalsAdapter(Context ctx) {
         this.ctx = ctx;

@@ -12,7 +12,9 @@
     <string name="dialog_pos">Confirm</string>
     <string name="error_meal_creation">Error creating meal. Please try again!</string>
 
-    <string name="monster_h1">Fight this monster!</string>
+    <string name="monster_h1_fight">Fight this monster!</string>
+    <string name="monster_h1_help">It\'s weakening!\nJust a little more!</string>
+    <string name="monster_h1_ded">The monster is powerless...\nGreat job!</string>
     <string name="goals_h1">Keep blood sugar level before bedtime between 90\-150mg/dL for 1 week</string>
 
     <string name="food_h1">What\'s for %1$s?</string>

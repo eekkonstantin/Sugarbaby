@@ -11,6 +11,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.kkontagion.sugarbaby.R;
@@ -25,6 +26,7 @@ public class MonsterFragment extends Fragment {
 
     RecyclerView lv;
     ImageView img;
+    TextView tv;
 
     GoalsAdapter adapter;
 
@@ -68,6 +70,8 @@ public class MonsterFragment extends Fragment {
         img = v.findViewById(R.id.img_monster);
         Glide.with(getContext()).load(R.raw.angryjumpybear).into(img);
 
+        tv = v.findViewById(R.id.tv_h1);
+
         v.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -87,12 +91,15 @@ public class MonsterFragment extends Fragment {
         switch (toggle) {
             case GoalsAdapter.NONE:
                 Glide.with(getContext()).load(R.raw.angryjumpybear).into(img);
+                tv.setText(R.string.monster_h1_fight);
                 break;
             case GoalsAdapter.SOME:
                 Glide.with(getContext()).load(R.raw.roamingknight).into(img);
+                tv.setText(R.string.monster_h1_help);
                 break;
             case GoalsAdapter.ALL:
                 Glide.with(getContext()).load(R.raw.runningnoob).into(img);
+                tv.setText(R.string.monster_h1_ded);
                 break;
         }
     }

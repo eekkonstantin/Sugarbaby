@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -316,13 +317,17 @@ public class MeasurementsFragment extends Fragment {
         gvA1C.getLineData().notifyDataChanged();
         gvA1C.notifyDataSetChanged();
         gvA1C.invalidate();
+
+        gvWeight.getLineData().notifyDataChanged();
+        gvWeight.notifyDataSetChanged();
+        gvWeight.invalidate();
     }
 
     private void setupGraphGraphics() {
         final String[] timeLabels = new String[] {
                 "12AM", "2AM", "4AM", "6AM", "8AM", "10AM",
                 "12PM", "2PM", "4PM", "6PM", "8PM", "10PM",
-                "12AM"
+                "12AM", "2AM", "4AM", "6AM", "8AM", "10AM",
         };
 
         final String[] monthLabels = new String[] {

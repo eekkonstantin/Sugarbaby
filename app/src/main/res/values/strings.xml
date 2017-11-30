@@ -34,6 +34,7 @@
     <string name="journal_h1">Next Appointment</string>
     <string name="journal_appt_h2">Dr Lee Kong Shen @ Gleneagles Hospital\nLevel 3, Clinic G Room 502</string>
     <string name="journal_h2">How are you feeling today?</string>
+    <string name="journal_bt">Save</string>
 
     <string-array name="hour_of_day">
         <item>12AM</item>

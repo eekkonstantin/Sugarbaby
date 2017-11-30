@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -44,11 +45,13 @@ public class JournalFragment extends Fragment {
     TextView tvTitle;
     EditText etRate;
     LineChart gvFeels;
+    Button btNext;
 
     private static Random rand = new Random();
+    final ArrayList<Calendar> cals = new ArrayList<>();
 
     private static final int START_DATE = 21;
-    private static final int END_DATE = 31;
+    private static final int END_DATE = 33;
 
 
     public JournalFragment() {
@@ -89,17 +92,37 @@ public class JournalFragment extends Fragment {
         tvTitle = v.findViewById(R.id.tv_title);
         etRate = v.findViewById(R.id.et_rate);
         gvFeels = v.findViewById(R.id.gv_feels);
+        btNext = v.findViewById(R.id.bt_next);
 
         setupGraph();
         setupGraphGraphics();
+
+        btNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (etRate.getText().length() < 1)
+                    return;
+                float rating = Float.parseFloat(etRate.getText().toString());
+                // TODO alertdialog? symptoms
+
+                Calendar cal = Calendar.getInstance();
+                float date = findKey(cal) + cal.get(Calendar.HOUR_OF_DAY) / 24
+                        + (cal.get(Calendar.MINUTE) / 60 / 10);
+                gvFeels.getLineData().getDataSetByIndex(0).addEntryOrdered(new Entry(date, rating));
+                gvFeels.getLineData().notifyDataChanged();
+                gvFeels.notifyDataSetChanged();
+
+                gvFeels.invalidate();
+            }
+        });
 
         return v;
     }
 
     private void setupGraph() {
         ArrayList<Entry> ratings = new ArrayList<>();
-        for (int i=0; i<END_DATE - START_DATE; i++)
-            ratings.add(new Entry(i + rand.nextFloat(), rand.nextInt(11) + rand.nextFloat()));
+        for (int i=0; i<END_DATE - START_DATE - 3; i++)
+            ratings.add(new Entry(i + rand.nextFloat(), 1 + rand.nextInt(9) + rand.nextFloat()));
         Collections.sort(ratings, new EntryXComparator());
 
         LineDataSet ds = new LineDataSet(ratings, "Wellness Rating");
@@ -110,11 +133,19 @@ public class JournalFragment extends Fragment {
         gvFeels.setData(data);
     }
 
+    private int findKey(Calendar search) {
+        for (int i=0; i<cals.size(); i++)
+            if (cals.get(i).get(Calendar.DAY_OF_MONTH) == search.get(Calendar.DAY_OF_MONTH))
+                return i;
+
+        return -1;
+    }
+
     private void setupGraphGraphics() {
 
-        final ArrayList<Calendar> cals = new ArrayList<>();
         for (int i=START_DATE; i<END_DATE; i++) {
             Calendar cal = Calendar.getInstance();
+            cal.set(Calendar.MONTH, Calendar.NOVEMBER);
             cal.set(Calendar.DAY_OF_MONTH, i);
             cals.add(cal);
         }

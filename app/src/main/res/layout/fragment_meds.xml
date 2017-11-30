@@ -3,8 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.kkontagion.sugarbaby.fragments.MedsFragment"
-    android:layout_margin="@dimen/reg_padding">
+    android:layout_marginLeft="@dimen/reg_padding"
+    android:layout_marginRight="@dimen/reg_padding"
+    tools:context="com.kkontagion.sugarbaby.fragments.MedsFragment">
 
     <android.support.v4.view.ViewPager
         android:id="@+id/pager"

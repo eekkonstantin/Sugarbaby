@@ -6,7 +6,10 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.TextView;
 
+import com.github.mikephil.charting.charts.LineChart;
 import com.kkontagion.sugarbaby.R;
 
 /**
@@ -23,6 +26,10 @@ public class JournalFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    TextView tvTitle;
+    EditText etRate;
+    LineChart gvFeels;
 
 
     public JournalFragment() {
@@ -58,7 +65,10 @@ public class JournalFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_journal, container, false);
+        View v = inflater.inflate(R.layout.fragment_journal, container, false);
+
+
+        return v;
     }
 
 }

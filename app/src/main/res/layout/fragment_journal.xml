@@ -90,7 +90,9 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/card"
         android:layout_centerHorizontal="true"
-        android:layout_margin="@dimen/reg_padding"
+        android:layout_marginLeft="@dimen/reg_padding"
+        android:layout_marginRight="@dimen/reg_padding"
+        android:layout_marginTop="@dimen/reg_padding"
         android:text="@string/journal_h2"
         android:textAppearance="@android:style/TextAppearance.Material.Title"
         android:textColor="@color/colorAccent"
@@ -124,6 +126,8 @@
         android:id="@+id/gv_feels"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/et_rate" />
+        android:layout_below="@+id/et_rate"
+        android:layout_marginBottom="@dimen/reg_padding"
+        android:layout_marginTop="@dimen/reg_padding" />
 
 </RelativeLayout>

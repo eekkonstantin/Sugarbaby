@@ -11,6 +11,7 @@ import java.util.Date;
 public class Helper {
     private static String nocaps = "a an and am or then with";
     private static SimpleDateFormat df = new SimpleDateFormat("dd MMM yyyy hh:mmaa");
+    private static SimpleDateFormat dfDate = new SimpleDateFormat("MMM dd");
 
     public static String capitalize(String s) {
         s = s.toLowerCase();
@@ -27,5 +28,9 @@ public class Helper {
 
     public static String date(Date d) {
         return df.format(d);
+    }
+
+    public static String dateOnly(Date d) {
+        return dfDate.format(d);
     }
 }

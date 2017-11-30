@@ -7,11 +7,14 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -26,7 +29,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.HorizontalScrollView;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -59,6 +64,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
 import java.util.Random;
 
 import static android.content.Context.LAYOUT_INFLATER_SERVICE;
@@ -182,42 +188,52 @@ public class MeasurementsFragment extends Fragment {
     }
 
 
+    public static Bitmap getBitmapFromView(View view, int totalHeight, int totalWidth) {
+        Bitmap returnedBitmap = Bitmap.createBitmap(totalWidth,totalHeight , Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(returnedBitmap);
+        Drawable bgDrawable = view.getBackground();
+        if (bgDrawable != null)
+            bgDrawable.draw(canvas);
+        else
+            canvas.drawColor(Color.WHITE);
+        view.draw(canvas);
+        return returnedBitmap;
+    }
 
     private void saveImg() {
-        Toast.makeText(getContext(),"HERE ",Toast.LENGTH_SHORT).show();
+
         //Then take the screen shot
-        Bitmap screen; View v1 = getView();
-        v1.setDrawingCacheEnabled(true);
-        screen = Bitmap.createBitmap(v1.getDrawingCache());
-        v1.setDrawingCacheEnabled(false);
 
+        View u = getView().findViewById(R.id.scroll);
 
-//        LayoutInflater inflater = (LayoutInflater) getActivity().getSystemService(LAYOUT_INFLATER_SERVICE);
-//        RelativeLayout root = (RelativeLayout) inflater.inflate
-//                (R.layout.activity_main, null); //RelativeLayout is root view of my UI(xml) file.
-//        root.setDrawingCacheEnabled(true);
-//        Bitmap screen= getBitmapFromView(this.getWindow().findViewById
-//                (R.id.relativelayout)); // here give id of our root layout (here its my RelativeLayout's id)
+        ScrollView z = getView().findViewById(R.id.scroll);
+        int totalHeight = z.getChildAt(0).getHeight();
+        int totalWidth = z.getChildAt(0).getWidth();
 
-        String filename = "pippo1.png";
-        File sd = Environment.getExternalStorageDirectory();
-        File dest = new File(sd, filename);
+        Bitmap b = getBitmapFromView(u,totalHeight,totalWidth);
 
+        //Save bitmap
+        String extr = Environment.getExternalStorageDirectory().toString();
+        Date currentTime = Calendar.getInstance().getTime();
+        String fileName = currentTime.toString() + "_report.jpg";
+        File myPath = new File(extr, fileName);
+        FileOutputStream fos = null;
         try {
-            FileOutputStream out = new FileOutputStream(dest);
-            screen.compress(Bitmap.CompressFormat.PNG, 90, out);
-            out.flush();
-            out.close();
-            Toast.makeText(getContext(),"Saved files to " + sd.toString(),Toast.LENGTH_LONG).show();
+            fos = new FileOutputStream(myPath);
+            b.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+            fos.flush();
+            fos.close();
+            MediaStore.Images.Media.insertImage(getActivity().getContentResolver(), b, "Screen", "screen");
+        }catch (FileNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         } catch (Exception e) {
-            Toast.makeText(getContext(),"Fail la ",Toast.LENGTH_LONG).show();
+            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
-        Toast.makeText(getContext(),"Saved files to " + sd.toString(),Toast.LENGTH_LONG).show();
+        Toast.makeText(getContext(),"Saved file to " + extr + "/" + fileName,Toast.LENGTH_LONG).show();
     }
-
-
 
     private void setupDialog() {
         alertLayout = getLayoutInflater().inflate(R.layout.dialog_meas_add, null);

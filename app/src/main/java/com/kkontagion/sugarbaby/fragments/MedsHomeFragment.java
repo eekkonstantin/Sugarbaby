@@ -198,7 +198,7 @@ public class MedsHomeFragment extends Fragment {
                                 Collections.sort(meds);
                                 future.notifyDataSetChanged();
 
-                                Log.d("fuck", "onClick: " + sel.get(0));
+                                Log.d("lol", "onClick: " + sel.get(0));
                             }
                         });
                 alert.create().show();

@@ -1,5 +1,6 @@
 package com.kkontagion.sugarbaby.objects;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -9,7 +10,7 @@ import java.util.Comparator;
  * Created by kkontagion on 029 29/11/2017.
  */
 
-public class MedicineFake implements Comparable<MedicineFake> {
+public class MedicineFake implements Comparable<MedicineFake>, Serializable {
     private String name, unit;
     private double dosage;
     private ArrayList<Integer> regularity; // FOR REMINDERS e.g. every 6am, 9pm

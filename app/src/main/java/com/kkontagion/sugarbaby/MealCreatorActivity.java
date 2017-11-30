@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.support.v4.app.TaskStackBuilder;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -62,6 +63,7 @@ public class MealCreatorActivity extends AppCompatActivity {
         setContentView(R.layout.activity_meal_creator);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+
         time = Calendar.getInstance();
 
         tvTime = findViewById(R.id.tv_time);
@@ -99,6 +101,7 @@ public class MealCreatorActivity extends AppCompatActivity {
     }
 
     private void setupActions() {
+
         tvTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -159,6 +162,10 @@ public class MealCreatorActivity extends AppCompatActivity {
         btSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (foodAdapter.getItemCount() == 0) {
+                    finish();
+                    return;
+                }
                 // generate meal and send back to fragment
                 Meal meal = new Meal(time);
                 meal.setFood(foodAdapter.getItems());
@@ -220,5 +227,35 @@ public class MealCreatorActivity extends AppCompatActivity {
                     }
                 });
         alert.create().show();
+    }
+
+    /**
+     * This method is called whenever the user chooses to navigate Up within your application's
+     * activity hierarchy from the action bar.
+     * <p>
+     * <p>If a parent was specified in the manifest for this activity or an activity-alias to it,
+     * default Up navigation will be handled automatically. See
+     * {@link #getSupportParentActivityIntent()} for how to specify the parent. If any activity
+     * along the parent chain requires extra Intent arguments, the Activity subclass
+     * should override the method {@link #onPrepareSupportNavigateUpTaskStack(TaskStackBuilder)}
+     * to supply those arguments.</p>
+     * <p>
+     * <p>See <a href="{@docRoot}guide/topics/fundamentals/tasks-and-back-stack.html">Tasks and
+     * Back Stack</a> from the developer guide and
+     * <a href="{@docRoot}design/patterns/navigation.html">Navigation</a> from the design guide
+     * for more information about navigating within your app.</p>
+     * <p>
+     * <p>See the {@link TaskStackBuilder} class and the Activity methods
+     * {@link #getSupportParentActivityIntent()}, {@link #supportShouldUpRecreateTask(Intent)}, and
+     * {@link #supportNavigateUpTo(Intent)} for help implementing custom Up navigation.</p>
+     *
+     * @return true if Up navigation completed successfully and this Activity was finished,
+     * false otherwise.
+     */
+    @Override
+    public boolean onSupportNavigateUp() {
+        Log.d(TAG, "onSupportNavigateUp: how?");
+        finish();
+        return true;
     }
 }

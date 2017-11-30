@@ -6,8 +6,26 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.AxisBase;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.formatter.IAxisValueFormatter;
+import com.github.mikephil.charting.utils.EntryXComparator;
+import com.kkontagion.sugarbaby.Helper;
 import com.kkontagion.sugarbaby.R;
+
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Random;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -23,6 +41,17 @@ public class JournalFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    TextView tvTitle;
+    EditText etRate;
+    LineChart gvFeels;
+    Button btNext;
+
+    private static Random rand = new Random();
+    final ArrayList<Calendar> cals = new ArrayList<>();
+
+    private static final int START_DATE = 21;
+    private static final int END_DATE = 33;
 
 
     public JournalFragment() {
@@ -58,7 +87,85 @@ public class JournalFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_journal, container, false);
+        View v = inflater.inflate(R.layout.fragment_journal, container, false);
+
+        tvTitle = v.findViewById(R.id.tv_title);
+        etRate = v.findViewById(R.id.et_rate);
+        gvFeels = v.findViewById(R.id.gv_feels);
+        btNext = v.findViewById(R.id.bt_next);
+
+        setupGraph();
+        setupGraphGraphics();
+
+        btNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (etRate.getText().length() < 1)
+                    return;
+                float rating = Float.parseFloat(etRate.getText().toString());
+                // TODO alertdialog? symptoms
+
+                Calendar cal = Calendar.getInstance();
+                float date = findKey(cal) + cal.get(Calendar.HOUR_OF_DAY) / 24
+                        + (cal.get(Calendar.MINUTE) / 60 / 10);
+                gvFeels.getLineData().getDataSetByIndex(0).addEntryOrdered(new Entry(date, rating));
+                gvFeels.getLineData().notifyDataChanged();
+                gvFeels.notifyDataSetChanged();
+
+                gvFeels.invalidate();
+            }
+        });
+
+        return v;
+    }
+
+    private void setupGraph() {
+        ArrayList<Entry> ratings = new ArrayList<>();
+        for (int i=0; i<END_DATE - START_DATE - 3; i++)
+            ratings.add(new Entry(i + rand.nextFloat(), 1 + rand.nextInt(9) + rand.nextFloat()));
+        Collections.sort(ratings, new EntryXComparator());
+
+        LineDataSet ds = new LineDataSet(ratings, "Wellness Rating");
+        ds.setColor(getResources().getColor(R.color.colorAccent));
+        ds.setCircleColor(getResources().getColor(R.color.colorAccentDark));
+        LineData data = new LineData();
+        data.addDataSet(ds);
+        gvFeels.setData(data);
+    }
+
+    private int findKey(Calendar search) {
+        for (int i=0; i<cals.size(); i++)
+            if (cals.get(i).get(Calendar.DAY_OF_MONTH) == search.get(Calendar.DAY_OF_MONTH))
+                return i;
+
+        return -1;
+    }
+
+    private void setupGraphGraphics() {
+
+        for (int i=START_DATE; i<END_DATE; i++) {
+            Calendar cal = Calendar.getInstance();
+            cal.set(Calendar.MONTH, Calendar.NOVEMBER);
+            cal.set(Calendar.DAY_OF_MONTH, i);
+            cals.add(cal);
+        }
+
+
+        IAxisValueFormatter formatter = new IAxisValueFormatter() {
+            @Override
+            public String getFormattedValue(float value, AxisBase axis) {
+                return Helper.dateOnly(cals.get((int) value).getTime());
+            }
+        };
+
+        gvFeels.setDescription(null);
+        XAxis xAxis = gvFeels.getXAxis();
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setGranularity(1f); // minimum axis-step (interval) is 1
+        xAxis.setValueFormatter(formatter);
+        gvFeels.getAxisRight().setEnabled(false);
+//        YAxis yAxis = gvFeels.getAxis(YAxis.AxisDependency.LEFT);
+//        yAxis.setGranularity(1.5f);
     }
 
 }

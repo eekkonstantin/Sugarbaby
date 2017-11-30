@@ -43,14 +43,8 @@ import com.github.mikephil.charting.data.CombinedData;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
-import com.github.mikephil.charting.data.ScatterData;
-import com.github.mikephil.charting.data.ScatterDataSet;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.utils.EntryXComparator;
-import com.jjoe64.graphview.GraphView;
-import com.jjoe64.graphview.helper.DateAsXAxisLabelFormatter;
-import com.jjoe64.graphview.series.DataPoint;
-import com.jjoe64.graphview.series.LineGraphSeries;
 import com.kkontagion.sugarbaby.Helper;
 import com.kkontagion.sugarbaby.R;
 import com.kkontagion.sugarbaby.objects.MedicineFake;
@@ -63,7 +57,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Random;
@@ -126,7 +119,7 @@ public class MeasurementsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_shots, container, false);
+        View v = inflater.inflate(R.layout.fragment_measurements, container, false);
 
         tvA1C = v.findViewById(R.id.tv2);
         tvGlucose = v.findViewById(R.id.tv1);
@@ -430,13 +423,17 @@ public class MeasurementsFragment extends Fragment {
         gvA1C.getLineData().notifyDataChanged();
         gvA1C.notifyDataSetChanged();
         gvA1C.invalidate();
+
+        gvWeight.getLineData().notifyDataChanged();
+        gvWeight.notifyDataSetChanged();
+        gvWeight.invalidate();
     }
 
     private void setupGraphGraphics() {
         final String[] timeLabels = new String[] {
                 "12AM", "2AM", "4AM", "6AM", "8AM", "10AM",
                 "12PM", "2PM", "4PM", "6PM", "8PM", "10PM",
-                "12AM"
+                "12AM", "2AM", "4AM", "6AM", "8AM", "10AM",
         };
 
         final String[] monthLabels = new String[] {

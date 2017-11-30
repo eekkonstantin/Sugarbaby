@@ -27,6 +27,8 @@
     <string name="meds_h2">Recent</string>
     <string name="meds_add">Add New Medicine</string>
 
+    <string name="meas_h1">New %1$s Measurement</string>
+
     <string-array name="hour_of_day">
         <item>12AM</item>
         <item>1AM</item>

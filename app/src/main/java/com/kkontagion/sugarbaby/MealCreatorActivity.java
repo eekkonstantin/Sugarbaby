@@ -102,31 +102,34 @@ public class MealCreatorActivity extends AppCompatActivity {
         tvTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // TODO datepicker dialog, followed by time picker dialog.
+                // datepicker dialog, followed by time picker dialog.
                 // On complete (both selected), update tvTime.setText(result) using the same format as `df` above.
                 DatePickerDialog dialog = new DatePickerDialog(
-                   MealCreatorActivity.this,
-                   R.style.TimePickerTheme,
-                   mDateSetListener,
-                 time.get(Calendar.YEAR),time.get(Calendar.MONTH),time.get(Calendar.DAY_OF_MONTH));
-                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                 dialog.show();
+                        MealCreatorActivity.this,
+                        R.style.TimePickerTheme,
+                        mDateSetListener,
+                        time.get(Calendar.YEAR),
+                        time.get(Calendar.MONTH),
+                        time.get(Calendar.DAY_OF_MONTH)
+                );
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dialog.show();
             }
         });
 
-      mDateSetListener = new DatePickerDialog.OnDateSetListener(){
-       @Override
-       public void onDateSet(DatePicker datePicker, int i, int i1,int i2){
+        mDateSetListener = new DatePickerDialog.OnDateSetListener(){
+            @Override
+            public void onDateSet(DatePicker datePicker, int i, int i1,int i2){
 
-           time.set(i, i1, i2);
+                time.set(i, i1, i2);
 
-           int hour = time.get(Calendar.HOUR_OF_DAY);
-           int minutes = time.get(Calendar.MINUTE);
+                int hour = time.get(Calendar.HOUR_OF_DAY);
+                int minutes = time.get(Calendar.MINUTE);
 
-           TimePickerDialog dialog = new TimePickerDialog(MealCreatorActivity.this, R.style.TimePickerTheme, mTimeSetListener,hour,minutes,false);
-           dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-           dialog.show();
-          }
+                TimePickerDialog dialog = new TimePickerDialog(MealCreatorActivity.this, R.style.TimePickerTheme, mTimeSetListener,hour,minutes,false);
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dialog.show();
+            }
         };
 
        mTimeSetListener = new TimePickerDialog.OnTimeSetListener(){

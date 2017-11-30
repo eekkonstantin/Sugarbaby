@@ -1,71 +1,79 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.kkontagion.sugarbaby.fragments.MeasurementsFragment">
 
-    <TextView
-        android:id="@+id/tv1"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_margin="@dimen/reg_padding"
-        android:drawableRight="@drawable/ic_add"
-        android:drawableTint="@color/colorAccentDark"
-        android:gravity="center_vertical"
-        android:text="Blood Glucose Level"
-        android:textAppearance="@android:style/TextAppearance.Material.Title"
-        android:textColor="@color/colorAccent"
-        android:textSize="20sp" />
+        android:layout_height="match_parent">
 
-    <com.github.mikephil.charting.charts.CombinedChart
-        android:id="@+id/graph_glucose"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/_160sdp"
-        android:layout_below="@+id/tv1" />
+        <TextView
+            android:id="@+id/tv1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_margin="@dimen/reg_padding"
+            android:layout_marginBottom="0dp"
+            android:drawableRight="@drawable/ic_add"
+            android:drawableTint="@color/colorAccentDark"
+            android:gravity="center_vertical"
+            android:text="Blood Glucose Level"
+            android:textAppearance="@android:style/TextAppearance.Material.Title"
+            android:textColor="@color/colorAccent"
+            android:textSize="20sp" />
 
-    <TextView
-        android:id="@+id/tv2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/graph_glucose"
-        android:layout_margin="@dimen/reg_padding"
-        android:drawableRight="@drawable/ic_add"
-    android:drawableTint="@color/colorAccentDark"
-        android:gravity="center_vertical"
-        android:text="A1C Levels"
-        android:textAppearance="@android:style/TextAppearance.Material.Title"
-        android:textColor="@color/colorAccent"
-        android:textSize="20sp" />
+        <com.github.mikephil.charting.charts.CombinedChart
+            android:id="@+id/graph_glucose"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_155sdp"
+            android:layout_below="@+id/tv1" />
 
-    <com.github.mikephil.charting.charts.LineChart
-        android:id="@+id/graph_a1c"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/_100sdp"
-        android:layout_below="@+id/tv2" />
+        <TextView
+            android:id="@+id/tv2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/graph_glucose"
+            android:layout_margin="@dimen/reg_padding"
+            android:layout_marginBottom="0dp"
+            android:drawableRight="@drawable/ic_add"
+            android:drawableTint="@color/colorAccentDark"
+            android:gravity="center_vertical"
+            android:text="A1C Levels"
+            android:textAppearance="@android:style/TextAppearance.Material.Title"
+            android:textColor="@color/colorAccent"
+            android:textSize="20sp" />
 
-    <TextView
-        android:id="@+id/tv3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/graph_a1c"
-        android:layout_margin="@dimen/reg_padding"
-        android:drawableRight="@drawable/ic_add"
-        android:drawableTint="@color/colorAccentDark"
-        android:gravity="center_vertical"
-        android:text="Weight"
-        android:textAppearance="@android:style/TextAppearance.Material.Title"
-        android:textColor="@color/colorAccent"
-        android:textSize="20sp" />
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/graph_a1c"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_130sdp"
+            android:layout_below="@+id/tv2" />
 
-    <com.github.mikephil.charting.charts.LineChart
-        android:id="@+id/graph_weight"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/_75sdp"
-        android:layout_alignParentBottom="true"
-        android:layout_below="@+id/tv3" />
+        <TextView
+            android:id="@+id/tv3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/graph_a1c"
+            android:layout_margin="@dimen/reg_padding"
+            android:layout_marginBottom="0dp"
+            android:drawableRight="@drawable/ic_add"
+            android:drawableTint="@color/colorAccentDark"
+            android:gravity="center_vertical"
+            android:text="Weight"
+            android:textAppearance="@android:style/TextAppearance.Material.Title"
+            android:textColor="@color/colorAccent"
+            android:textSize="20sp" />
 
-</RelativeLayout>
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/graph_weight"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_130sdp"
+            android:layout_alignParentBottom="true"
+            android:layout_below="@+id/tv3" />
+    </RelativeLayout>
+
+</ScrollView>

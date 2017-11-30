@@ -1,13 +1,23 @@
 package com.kkontagion.sugarbaby.fragments;
 
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.TimePicker;
 
 import com.github.mikephil.charting.charts.CombinedChart;
 import com.github.mikephil.charting.charts.LineChart;
@@ -24,15 +34,18 @@ import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.data.ScatterData;
 import com.github.mikephil.charting.data.ScatterDataSet;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
+import com.github.mikephil.charting.utils.EntryXComparator;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.helper.DateAsXAxisLabelFormatter;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
+import com.kkontagion.sugarbaby.Helper;
 import com.kkontagion.sugarbaby.R;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Random;
 
 /**
@@ -50,7 +63,13 @@ public class MeasurementsFragment extends Fragment {
     CombinedChart gvGlucose;
     TextView tvGlucose, tvA1C, tvWeight;
 
+    View alertLayout;
+    TextView tvTime, tvUnit;
+    EditText etMeas;
+    Calendar time;
+
     Random rand;
+    AlertDialog.Builder alert;
 
     public MeasurementsFragment() {
         // Required empty public constructor
@@ -92,23 +111,148 @@ public class MeasurementsFragment extends Fragment {
         gvGlucose = v.findViewById(R.id.graph_glucose);
         gvWeight = v.findViewById(R.id.graph_weight);
 
+
+        setupDialog();
         setupGraphs();
         setupGraphGraphics();
+        setupActions();
 
         return v;
     }
 
+    private void setupDialog() {
+        alertLayout = getLayoutInflater().inflate(R.layout.dialog_meas_add, null);
+        tvTime = alertLayout.findViewById(R.id.tv_time);
+        tvUnit = alertLayout.findViewById(R.id.tv_unit);
+        etMeas = alertLayout.findViewById(R.id.et_meas);
+
+        alert = new AlertDialog.Builder(getContext());
+        alert.setTitle(getString(R.string.meas_h1, "???")).setView(alertLayout)
+                .setPositiveButton(R.string.dialog_pos, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        if (etMeas.getText().length() < 1)
+                            return;
+
+                        String meas = etMeas.getHint().toString().trim();
+                        float data = Float.parseFloat(etMeas.getText().toString());
+                        float div = time.get(Calendar.DAY_OF_MONTH) / time.get(Calendar.MONTH);
+                        float date = time.get(Calendar.MONTH) + (
+                                div < 1 ? div : 0f
+                        );
+
+                        if (meas.equalsIgnoreCase("a1c"))
+                            gvA1C.getLineData().getDataSetByIndex(0).addEntryOrdered(new Entry(
+                                    date,
+                                    data
+                            ));
+                        else if (meas.contains("Blood"))
+                            gvGlucose.getCombinedData().getLineData().getDataSetByIndex(0).addEntryOrdered(new Entry(
+                                    time.get(Calendar.HOUR_OF_DAY) / 2f + time.get(Calendar.MINUTE) / 120f,
+                                    data
+                            ));
+                        else if (meas.contains("Weight"))
+                            gvWeight.getLineData().getDataSetByIndex(0).addEntryOrdered(new Entry(
+                                    date,
+                                    data
+                            ));
+
+
+                        notifyGraphs();
+                    }
+                });
+
+
+        final TimePickerDialog.OnTimeSetListener mTimeSetListener = new TimePickerDialog.OnTimeSetListener(){
+            @Override
+            public void onTimeSet(TimePicker timePicker, int i , int i1){
+                time.set(Calendar.HOUR_OF_DAY,i);
+                time.set(Calendar.MINUTE,i1);
+                tvTime.setText(Helper.date(time.getTime()));
+            }
+        };
+
+        final DatePickerDialog.OnDateSetListener mDateSetListener = new DatePickerDialog.OnDateSetListener(){
+            @Override
+            public void onDateSet(DatePicker datePicker, int i, int i1,int i2){
+
+                time.set(i, i1, i2);
+
+                int hour = time.get(Calendar.HOUR_OF_DAY);
+                int minutes = time.get(Calendar.MINUTE);
+
+                TimePickerDialog dialog = new TimePickerDialog(
+                        getContext(),
+                        R.style.TimePickerTheme,
+                        mTimeSetListener,
+                        hour, minutes,
+                        false);
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dialog.show();
+            }
+        };
+
+
+
+        tvTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DatePickerDialog dialog = new DatePickerDialog(
+                        getContext(),
+                        R.style.TimePickerTheme,
+                        mDateSetListener,
+                        time.get(Calendar.YEAR),
+                        time.get(Calendar.MONTH),
+                        time.get(Calendar.DAY_OF_MONTH)
+                );
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dialog.show();
+            }
+        });
+    }
+
+    private void setupActions() {
+        View.OnClickListener triggerDialog = new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String meas = ((TextView) view).getText().toString().split("Level")[0].trim();
+                setupDialog();
+                time = Calendar.getInstance();
+                tvTime.setText(Helper.date(time.getTime()));
+                etMeas.setHint(meas);
+                if (meas.equalsIgnoreCase("A1C"))
+                    tvUnit.setText("%");
+                else if (meas.contains("Blood"))
+                    tvUnit.setText("mg/dL");
+                else if (meas.contains("Weight"))
+                    tvUnit.setText("kg");
+                triggerDialog(meas);
+            }
+        };
+        tvA1C.setOnClickListener(triggerDialog);
+        tvGlucose.setOnClickListener(triggerDialog);
+        tvWeight.setOnClickListener(triggerDialog);
+    }
+
+    private void triggerDialog(String meas) {
+        alert.setTitle(getString(R.string.meas_h1, meas));
+        alert.create().show();
+    }
+
+
+
+
     private void setupGraphs() {
         CombinedData glucose = new CombinedData();
 
-        Entry[] glucose1d = new Entry[4];
+        ArrayList<Entry> glucose1d = new ArrayList<>();
         ArrayList<BarEntry> carbs1d = new ArrayList<>();
         ArrayList<BarEntry> cals1d = new ArrayList<>();
 
-        glucose1d[0] = new Entry(3 + rand.nextFloat(), 90 + rand.nextInt(50));
-        glucose1d[1] = new Entry(5 + rand.nextFloat(), 90 + rand.nextInt(50));
-        glucose1d[2] = new Entry(9 + rand.nextFloat(), 90 + rand.nextInt(50));
-        glucose1d[3] = new Entry(11 + rand.nextFloat(), 100 + rand.nextInt(70));
+        glucose1d.add(new Entry(3 + rand.nextFloat(), 90 + rand.nextInt(50)));
+        glucose1d.add(new Entry(5 + rand.nextFloat(), 90 + rand.nextInt(50)));
+        glucose1d.add(new Entry(9 + rand.nextFloat(), 90 + rand.nextInt(50)));
+        glucose1d.add(new Entry(11 + rand.nextFloat(), 100 + rand.nextInt(70)));
 
         ArrayList<Float> mealtimes = new ArrayList<>();
         mealtimes.add(4 + rand.nextFloat());
@@ -123,7 +267,8 @@ public class MeasurementsFragment extends Fragment {
             cals1d.add(new BarEntry(f, 50 + rand.nextInt(150)));
         }
 
-        LineDataSet gGlucose1d = new LineDataSet(Arrays.asList(glucose1d), "Blood Sugar Level");
+        Collections.sort(glucose1d, new EntryXComparator());
+        LineDataSet gGlucose1d = new LineDataSet(glucose1d, "Blood Sugar Level");
         gGlucose1d.setColor(getResources().getColor(R.color.colorAccent));
         gGlucose1d.setCircleColor(getResources().getColor(R.color.colorAccentDark));
         LineData d = new LineData();
@@ -143,25 +288,42 @@ public class MeasurementsFragment extends Fragment {
         b.setBarWidth(0.3f);
         glucose.setData(b);
 
-//        ScatterDataSet gCals1d = new ScatterDataSet(cals1d, "Calorie Intake");
-//        gCals1d.setColor(getResources().getColor(R.color.warning));
-//        ScatterData s = new ScatterData();
-//        s.addDataSet(gCals1d);
-//        s.setDrawValues(true);
-//        glucose.setData(s);
-
         gvGlucose.setData(glucose);
 
 
         ArrayList<Entry> a1C1d = new ArrayList<>();
-        for (int i=rand.nextInt(3); i<12; i+=3)
-            a1C1d.add(new Entry(i + rand.nextFloat(), 6.3f + rand.nextInt(2) + rand.nextFloat()));
+        for (int i=0; i<8; i+=3)
+            a1C1d.add(new Entry(i + rand.nextInt(3) + rand.nextFloat(), 6.3f + rand.nextInt(2) + rand.nextFloat()));
+        Collections.sort(a1C1d, new EntryXComparator());
         LineDataSet gA1C1d = new LineDataSet(a1C1d, "A1C Measurements");
         gA1C1d.setColor(getResources().getColor(R.color.colorAccent));
         gA1C1d.setCircleColor(getResources().getColor(R.color.colorAccentDark));
         LineData a = new LineData();
         a.addDataSet(gA1C1d);
         gvA1C.setData(a);
+
+        ArrayList<Entry> wt1d = new ArrayList<>();
+        for (int i=0; i<10; i+=2)
+            wt1d.add(new Entry(i + rand.nextInt(3) + rand.nextFloat(), 80f + rand.nextInt(6) + rand.nextFloat()));
+        Collections.sort(wt1d, new EntryXComparator());
+        LineDataSet gWt1d = new LineDataSet(wt1d, "Weight");
+        gWt1d.setColor(getResources().getColor(R.color.colorAccent));
+        gWt1d.setCircleColor(getResources().getColor(R.color.colorAccentDark));
+        LineData w = new LineData();
+        w.addDataSet(gWt1d);
+        gvWeight.setData(w);
+    }
+
+    private void notifyGraphs() {
+        gvGlucose.getCombinedData().getLineData().notifyDataChanged();
+        gvGlucose.getCombinedData().getBarData().notifyDataChanged();
+        gvGlucose.getCombinedData().notifyDataChanged();
+        gvGlucose.notifyDataSetChanged();
+        gvGlucose.invalidate();
+
+        gvA1C.getLineData().notifyDataChanged();
+        gvA1C.notifyDataSetChanged();
+        gvA1C.invalidate();
     }
 
     private void setupGraphGraphics() {
@@ -171,12 +333,12 @@ public class MeasurementsFragment extends Fragment {
                 "12AM"
         };
 
-        String[] months = new String[] {
+        final String[] monthLabels = new String[] {
                 "Jan", "Feb", "Mar", "Apr", "May", "Jun",
                 "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
         };
 
-        final String[] monthLabels = shuffleStart(months);
+//        final String[] monthLabels = shuffleStart(months);
 
         IAxisValueFormatter formatter = new IAxisValueFormatter() {
 
@@ -215,6 +377,15 @@ public class MeasurementsFragment extends Fragment {
         xAxis.setValueFormatter(formatter);
         gvA1C.getAxisRight().setEnabled(false);
         yAxis = gvA1C.getAxis(YAxis.AxisDependency.LEFT);
+        yAxis.setGranularity(1f);
+
+        gvWeight.setDescription(null);
+        xAxis = gvWeight.getXAxis();
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setGranularity(1.5f); // minimum axis-step (interval) is 1
+        xAxis.setValueFormatter(formatter);
+        gvWeight.getAxisRight().setEnabled(false);
+        yAxis = gvWeight.getAxis(YAxis.AxisDependency.LEFT);
         yAxis.setGranularity(1f);
     }
 

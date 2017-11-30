@@ -49,7 +49,7 @@
         <com.github.mikephil.charting.charts.LineChart
             android:id="@+id/graph_a1c"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_130sdp"
+            android:layout_height="@dimen/_140sdp"
             android:layout_below="@+id/tv2" />
 
         <TextView

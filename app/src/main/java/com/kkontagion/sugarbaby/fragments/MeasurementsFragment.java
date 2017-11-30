@@ -373,20 +373,20 @@ public class MeasurementsFragment extends Fragment {
         gvA1C.setDescription(null);
         xAxis = gvA1C.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-        xAxis.setGranularity(1f); // minimum axis-step (interval) is 1
+        xAxis.setGranularity(1f); // minimum axis-step (interval)
         xAxis.setValueFormatter(formatter);
         gvA1C.getAxisRight().setEnabled(false);
         yAxis = gvA1C.getAxis(YAxis.AxisDependency.LEFT);
-        yAxis.setGranularity(1f);
+        yAxis.setGranularity(0.25f);
 
         gvWeight.setDescription(null);
         xAxis = gvWeight.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-        xAxis.setGranularity(1.5f); // minimum axis-step (interval) is 1
+        xAxis.setGranularity(1f); // minimum axis-step (interval) is 1
         xAxis.setValueFormatter(formatter);
         gvWeight.getAxisRight().setEnabled(false);
         yAxis = gvWeight.getAxis(YAxis.AxisDependency.LEFT);
-        yAxis.setGranularity(1f);
+        yAxis.setGranularity(1.5f);
     }
 
     // TODO: Rename method, update argument and hook method into UI event

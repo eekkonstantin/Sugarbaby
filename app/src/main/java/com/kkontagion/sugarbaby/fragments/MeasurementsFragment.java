@@ -1,23 +1,35 @@
 package com.kkontagion.sugarbaby.fragments;
 
+import android.Manifest;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.CombinedChart;
 import com.github.mikephil.charting.charts.LineChart;
@@ -35,11 +47,21 @@ import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.utils.EntryXComparator;
 import com.kkontagion.sugarbaby.Helper;
 import com.kkontagion.sugarbaby.R;
+import com.kkontagion.sugarbaby.objects.MedicineFake;
+import com.kkontagion.sugarbaby.views.MultiSpinner;
 
+
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Random;
+
+import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -64,6 +86,8 @@ public class MeasurementsFragment extends Fragment {
     Random rand;
     AlertDialog.Builder alert;
 
+    static final int result = 69;
+
     public MeasurementsFragment() {
         // Required empty public constructor
     }
@@ -85,6 +109,7 @@ public class MeasurementsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
         rand = new Random();
         if (getArguments() != null) {
         }
@@ -112,6 +137,87 @@ public class MeasurementsFragment extends Fragment {
 
         return v;
     }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        MenuItem add = menu.add(getString(R.string.export_pdf));
+        add.setIcon(R.mipmap.ic_add);
+        add.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                int permissionCheck = ContextCompat.checkSelfPermission(getActivity(),
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE);
+                requestPermissions( new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                        result);
+
+                return false;
+            }
+        });
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        Log.d("yo","yo" + requestCode);
+        switch (requestCode) {
+            case result: {
+                // If request is cancelled, the result arrays are empty
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    saveImg();
+                    // permission was granted, yay! Do the
+                    // contacts-related task you need to do.
+
+                } else {
+
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+                }
+                return;
+            }
+
+            // other 'case' lines to check for other
+            // permissions this app might request
+        }
+    }
+
+
+
+    private void saveImg() {
+        Toast.makeText(getContext(),"HERE ",Toast.LENGTH_SHORT).show();
+        //Then take the screen shot
+        Bitmap screen; View v1 = getView();
+        v1.setDrawingCacheEnabled(true);
+        screen = Bitmap.createBitmap(v1.getDrawingCache());
+        v1.setDrawingCacheEnabled(false);
+
+
+//        LayoutInflater inflater = (LayoutInflater) getActivity().getSystemService(LAYOUT_INFLATER_SERVICE);
+//        RelativeLayout root = (RelativeLayout) inflater.inflate
+//                (R.layout.activity_main, null); //RelativeLayout is root view of my UI(xml) file.
+//        root.setDrawingCacheEnabled(true);
+//        Bitmap screen= getBitmapFromView(this.getWindow().findViewById
+//                (R.id.relativelayout)); // here give id of our root layout (here its my RelativeLayout's id)
+
+        String filename = "pippo1.png";
+        File sd = Environment.getExternalStorageDirectory();
+        File dest = new File(sd, filename);
+
+        try {
+            FileOutputStream out = new FileOutputStream(dest);
+            screen.compress(Bitmap.CompressFormat.PNG, 90, out);
+            out.flush();
+            out.close();
+            Toast.makeText(getContext(),"Saved files to " + sd.toString(),Toast.LENGTH_LONG).show();
+        } catch (Exception e) {
+            Toast.makeText(getContext(),"Fail la ",Toast.LENGTH_LONG).show();
+            e.printStackTrace();
+        }
+
+        Toast.makeText(getContext(),"Saved files to " + sd.toString(),Toast.LENGTH_LONG).show();
+    }
+
+
 
     private void setupDialog() {
         alertLayout = getLayoutInflater().inflate(R.layout.dialog_meas_add, null);

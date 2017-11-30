@@ -1,8 +1,10 @@
 package com.kkontagion.sugarbaby.fragments;
 
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +23,7 @@ import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.utils.EntryXComparator;
 import com.kkontagion.sugarbaby.Helper;
 import com.kkontagion.sugarbaby.R;
+import com.kkontagion.sugarbaby.TriggerListener;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -42,10 +45,14 @@ public class JournalFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    TextView tvTitle;
+    private TriggerListener mListener;
+
+    TextView tvTitle, tvTrigger;
     EditText etRate;
     LineChart gvFeels;
     Button btNext;
+    CardView card;
+
 
     private static Random rand = new Random();
     final ArrayList<Calendar> cals = new ArrayList<>();
@@ -83,6 +90,29 @@ public class JournalFragment extends Fragment {
         }
     }
 
+    /**
+     * Called when a fragment is first attached to its context.
+     * {@link #onCreate(Bundle)} will be called after this.
+     *
+     * @param context
+     */
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof TriggerListener)
+            mListener = (TriggerListener) context;
+    }
+
+    /**
+     * Called when the fragment is no longer attached to its activity.  This
+     * is called after {@link #onDestroy()}.
+     */
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -94,9 +124,18 @@ public class JournalFragment extends Fragment {
         gvFeels = v.findViewById(R.id.gv_feels);
         btNext = v.findViewById(R.id.bt_next);
 
+        tvTrigger = v.findViewById(R.id.textView8);
+        card = v.findViewById(R.id.card);
+
         setupGraph();
         setupGraphGraphics();
 
+        setupActions();
+
+        return v;
+    }
+
+    private void setupActions() {
         btNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -116,7 +155,25 @@ public class JournalFragment extends Fragment {
             }
         });
 
-        return v;
+
+        // TESTING
+        tvTrigger.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mListener.triggerHowYouDoin();
+            }
+        });
+
+        card.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mListener.triggerPlsSeeDoc(new String[] {
+                        "Dr Lee Kong Shen",
+                        "Gleneagles Hospital\nLevel 3, Clinic G Room 502",
+                        tvTitle.getText().toString()
+                });
+            }
+        });
     }
 
     private void setupGraph() {

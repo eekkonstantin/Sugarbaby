@@ -18,6 +18,7 @@ import android.widget.EditText;
 
 import com.bumptech.glide.Glide;
 import com.kkontagion.sugarbaby.R;
+import com.kkontagion.sugarbaby.TriggerListener;
 import com.kkontagion.sugarbaby.adapters.BasicCard;
 import com.kkontagion.sugarbaby.objects.MedicineFake;
 import com.kkontagion.sugarbaby.views.MultiSpinner;
@@ -109,7 +110,7 @@ public class MedsHomeFragment extends Fragment {
             public void onClick(View view) {
                 Log.d("ugh", "onClick: poop");
                 if (mListener != null)
-                    mListener.triggerNotification(meds.get(0));
+                    mListener.triggerPlsMedicate(meds.get(0));
             }
         });
 
@@ -131,7 +132,7 @@ public class MedsHomeFragment extends Fragment {
         Calendar cal = Calendar.getInstance();
         for (int i=18; i<21; i++) {
             for (int h=0; h<24; h++) {
-                cal.set(2017, 11, i, h, 0);
+                cal.set(2017, Calendar.NOVEMBER, i, h, 0);
                 for (MedicineFake med : meds) {
                     ArrayList<Integer> reg = med.getRegularity();
                     if (reg.contains(h))
@@ -271,9 +272,5 @@ public class MedsHomeFragment extends Fragment {
         public int getItemCount() {
             return data.size();
         }
-    }
-
-    public interface TriggerListener {
-        void triggerNotification(MedicineFake med);
     }
 }

@@ -5,7 +5,6 @@
     <string name="title_shots">Measurements</string>
     <string name="title_food">Food</string>
     <string name="title_journal">Journal</string>
-    <string name="notif_meds">Medication Reminder</string>
 
     <string name="hello_blank_fragment">FILL ME UP</string>
     <string name="dialog_neg">Cancel</string>
@@ -35,6 +34,15 @@
     <string name="journal_appt_h2">Dr Lee Kong Shen @ Gleneagles Hospital\nLevel 3, Clinic G Room 502</string>
     <string name="journal_h2">How are you feeling today?</string>
     <string name="journal_bt">Save</string>
+
+    <string name="notif_meds_title">Medication Reminder</string>
+    <string name="notif_meds">Have you taken your %1$s?</string>
+
+    <string name="notif_rate_title">Wellness Rating Reminder</string>
+    <string name="notif_rate">How are you feeling today?</string>
+
+    <string name="notif_appt_title">Doctor\'s Appointment Soon</string>
+    <string name="notif_appt">%1$s: %2$s at %3$s</string>
 
     <string-array name="hour_of_day">
         <item>12AM</item>

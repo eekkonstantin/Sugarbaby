@@ -50,6 +50,8 @@ public class MeasurementsFragment extends Fragment {
     CombinedChart gvGlucose;
     TextView tvGlucose, tvA1C, tvWeight;
 
+    Random rand;
+
     public MeasurementsFragment() {
         // Required empty public constructor
     }
@@ -71,6 +73,7 @@ public class MeasurementsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        rand = new Random();
         if (getArguments() != null) {
         }
     }
@@ -102,7 +105,6 @@ public class MeasurementsFragment extends Fragment {
         ArrayList<BarEntry> carbs1d = new ArrayList<>();
         ArrayList<BarEntry> cals1d = new ArrayList<>();
 
-        Random rand = new Random();
         glucose1d[0] = new Entry(3 + rand.nextFloat(), 90 + rand.nextInt(50));
         glucose1d[1] = new Entry(5 + rand.nextFloat(), 90 + rand.nextInt(50));
         glucose1d[2] = new Entry(9 + rand.nextFloat(), 90 + rand.nextInt(50));
@@ -151,22 +153,36 @@ public class MeasurementsFragment extends Fragment {
         gvGlucose.setData(glucose);
 
 
-
-
+        ArrayList<Entry> a1C1d = new ArrayList<>();
+        for (int i=rand.nextInt(3); i<12; i+=3)
+            a1C1d.add(new Entry(i + rand.nextFloat(), 6.3f + rand.nextInt(2) + rand.nextFloat()));
+        LineDataSet gA1C1d = new LineDataSet(a1C1d, "A1C Measurements");
+        gA1C1d.setColor(getResources().getColor(R.color.colorAccent));
+        gA1C1d.setCircleColor(getResources().getColor(R.color.colorAccentDark));
+        LineData a = new LineData();
+        a.addDataSet(gA1C1d);
+        gvA1C.setData(a);
     }
 
     private void setupGraphGraphics() {
-        final String[] labels = new String[] {
+        final String[] timeLabels = new String[] {
                 "12AM", "2AM", "4AM", "6AM", "8AM", "10AM",
                 "12PM", "2PM", "4PM", "6PM", "8PM", "10PM",
                 "12AM"
         };
 
+        String[] months = new String[] {
+                "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+                "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+        };
+
+        final String[] monthLabels = shuffleStart(months);
+
         IAxisValueFormatter formatter = new IAxisValueFormatter() {
 
             @Override
             public String getFormattedValue(float value, AxisBase axis) {
-                return labels[(int) value];
+                return timeLabels[(int) value];
             }
 
         };
@@ -178,10 +194,28 @@ public class MeasurementsFragment extends Fragment {
         xAxis.setAxisMinimum(xAxis.getAxisMinimum() - 1);
         xAxis.setAxisMaximum(xAxis.getAxisMaximum() + 1);
         gvGlucose.getAxisRight().setEnabled(false);
-        gvGlucose.getAxisLeft().setEnabled(false);
-        gvGlucose.getAxis(YAxis.AxisDependency.LEFT).setDrawGridLines(false);
-        gvGlucose.getAxis(YAxis.AxisDependency.LEFT).setGranularity(3f);
+        YAxis yAxis = gvGlucose.getAxis(YAxis.AxisDependency.LEFT);
+//        yAxis.setDrawGridLines(false);
+        yAxis.setGranularity(3f);
         gvGlucose.setDescription(null);
+
+        formatter = new IAxisValueFormatter() {
+
+            @Override
+            public String getFormattedValue(float value, AxisBase axis) {
+                return monthLabels[(int) value];
+            }
+
+        };
+
+        gvA1C.setDescription(null);
+        xAxis = gvA1C.getXAxis();
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setGranularity(1f); // minimum axis-step (interval) is 1
+        xAxis.setValueFormatter(formatter);
+        gvA1C.getAxisRight().setEnabled(false);
+        yAxis = gvA1C.getAxis(YAxis.AxisDependency.LEFT);
+        yAxis.setGranularity(1f);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -206,6 +240,19 @@ public class MeasurementsFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
 //        mListener = null;
+    }
+
+    private String[] shuffleStart(String[] start) {
+        String[] out = new String[start.length];
+        int s = rand.nextInt(start.length);
+        out[0] = start[s];
+
+        for (int i=1; i<start.length; i++) {
+            if (++s == start.length)
+                s = 0;
+            out[i] = start[s];
+        }
+        return out;
     }
 
     /**

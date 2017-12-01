@@ -214,8 +214,7 @@ public class MeasurementsFragment extends Fragment {
 
         //Save bitmap
         String extr = Environment.getExternalStorageDirectory().toString();
-        Date currentTime = Calendar.getInstance().getTime();
-        String fileName = currentTime.toString() + "_report.jpg";
+        String fileName = Helper.date(Calendar.getInstance().getTime()) + "_report.jpg";
         File myPath = new File(extr, fileName);
         FileOutputStream fos = null;
         try {

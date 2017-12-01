@@ -33,7 +33,7 @@
     <string name="journal_appt_h2">Dr Lee Kong Shen @ Gleneagles Hospital\nLevel 3, Clinic G Room 502</string>
     <string name="journal_h2">How are you feeling today?</string>
     <string name="journal_bt">Save</string>
-    <string name="export_pdf">Export to PDF</string>
+    <string name="export_pdf">Export to PNG</string>
 
     <string name="meas_h1">New %1$s Measurement</string>
 
